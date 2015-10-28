@@ -1,0 +1,6 @@
+---
+classes:
+- puppet-b2safe
+
+puppet-b2safe::mymessage: 'cool'
+
