@@ -8,7 +8,7 @@ Automatic installation for EUDAT B2SAFE service
 * Installation of iRods4.1.5 
 * Installation and configuration of Postgresql 9.3 
 
-## Puppet versioin 
+## Puppet version 
 * puppet version 3.8.x
 
 ## Usage 
