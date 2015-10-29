@@ -2,5 +2,5 @@
 classes:
 - puppet-b2safe
 
-puppet-b2safe::mymessage: 'cool'
+puppet-b2safe::mymessage: 'B2SAFE'
 
