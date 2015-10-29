@@ -21,20 +21,19 @@ case $os{
     source   => "http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-sl93-9.3-2.noarch.rpm",
    }   
 
-  ensure_packages(['postgresql93-server.x86_64','postgresql93-odbc','authd','unixODBC','unixODBC-devel'])
+
+ ensure_packages(['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests'])
+
+  package { 'irods-icat-4.1.5':
+    provider => rpm,
+    ensure   => installed,
+    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-icat-4.1.5-centos6-x86_64.rpm",
+    require  =>Package['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests']
+   }
   }
 
-  #yumrepo {"epel": 
-  # descr          => 'Extra Packages for Enterprise Linux 6 - x86_64',
-  # mirrorlist     => 'https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch',
-  # failovermethod => 'priority'
-  # enabled        => 1,    
-  # gpgcheck       => 0,
-  # } 
-  #}
-
  default: {
- notify{"AAAAA":}
+ notify{"in default: nothing to do":}
  }	
 }
 }

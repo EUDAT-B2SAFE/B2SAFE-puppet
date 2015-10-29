@@ -5,8 +5,16 @@
 #
 #
 
-  class db($os){
+  class db(
+$os,
+$postgres,
+){
 
-  notify{"we are in db ${os}":}
-
+  case $os{ 
+  'sl6.6':{
+  class {'puppet-b2safe::postgresql':}
+  }	
+ }
 }
+ 
+
