@@ -9,16 +9,17 @@ fi
 
 # find local working directory
 DETECTEDDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
+echo $DETECTEDDIR
 #
 # Detect run-in-place installation
 #
 if [ -f "$DETECTEDDIR/binary_installation.flag" ] ; then
     RUNINPLACE=0
+    echo "we are here"
 else
     RUNINPLACE=1
 fi
-
+echo "run in place $RUNINPLACE"
 # set some paths
 if [ $RUNINPLACE -eq 1 ] ; then
     MYSERVERCONFIGJSON=$DETECTEDDIR/../iRODS/server/config/server_config.json

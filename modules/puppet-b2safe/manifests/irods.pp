@@ -33,22 +33,22 @@ user { 'irods':
 
 #Prepare configuration files 
 
-file { '/var/lib/irods/packaging/setup_irods_service_account.sh':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => template('puppet-b2safe/setup_irods_service_account.erb'),
-  }
-
-file { '/var/lib/irods/packaging/setup_irods_configuration.sh':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => template('puppet-b2safe/setup_irods_configuration.erb'),
-  }
-
+#file { '/var/lib/irods/packaging/setup_irods_service_account.sh':
+#    ensure  => file,
+#    owner   => 'root',
+#    group   => 'root',
+#    mode    => '0755',
+#    content => template('puppet-b2safe/setup_irods_service_account.erb'),
+#  }
+#
+#file { '/var/lib/irods/packaging/setup_irods_configuration.sh':
+#    ensure  => file,
+#    owner   => 'root',
+#    group   => 'root',
+#    mode    => '0755',
+#    content => template('puppet-b2safe/setup_irods_configuration.erb'),
+#    }
+#
 
 
 
