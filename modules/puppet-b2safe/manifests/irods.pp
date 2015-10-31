@@ -17,13 +17,13 @@ $group_name   = 'irods',
 
 #Create irods user 
 
-file {'/home/irods':
+file {"/home/${account_name}":
  ensure => 'directory',
- owner  => 'irods',
+ owner  => "${account_name}",
  mode   => 700
  }
 
-user { 'irods':
+user {$account_name:
       ensure  => 'present',
       gid     => '0',
       home    => '/home/irods',
@@ -33,22 +33,22 @@ user { 'irods':
 
 #Prepare configuration files 
 
-#file { '/var/lib/irods/packaging/setup_irods_service_account.sh':
-#    ensure  => file,
-#    owner   => 'root',
-#    group   => 'root',
-#    mode    => '0755',
-#    content => template('puppet-b2safe/setup_irods_service_account.erb'),
-#  }
-#
-#file { '/var/lib/irods/packaging/setup_irods_configuration.sh':
-#    ensure  => file,
-#    owner   => 'root',
-#    group   => 'root',
-#    mode    => '0755',
-#    content => template('puppet-b2safe/setup_irods_configuration.erb'),
-#    }
-#
+file { '/var/lib/irods/packaging/setup_irods_service_account.sh':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('puppet-b2safe/setup_irods_service_account.erb'),
+  }
+
+file { '/var/lib/irods/packaging/setup_irods_configuration.sh':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('puppet-b2safe/setup_irods_configuration.erb'),
+    }
+
 
 
 

@@ -1,7 +1,8 @@
 
 
 class puppet-b2safe::postgresql(
-$password='irods'
+$db_password='irods',
+$db_user='irods'
 )
 {
 
@@ -54,12 +55,12 @@ package{'postgresql93-odbc':
  }->
 
  exec{'add_user':
-  unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='irods'\" |grep 1",
-  command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER irods WITH PASSWORD '${password}'\"",
+  unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
+  command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
  }->
 
 exec{'grand_priv':
-  command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"GRANT ALL PRIVILEGES ON DATABASE ICAT TO irods\"",
+  command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"GRANT ALL PRIVILEGES ON DATABASE ICAT TO ${db_user}\"",
  }
 
 

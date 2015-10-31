@@ -108,6 +108,8 @@ fi
         # no temp file, this is the first run
         STATUS="firstpass"
     fi
+    #puppet hack: define status as always firstpass 
+    STATUS="firstpass"
 
     # strip cruft from zone_key
     tmp=${MYLOCALZONEKEY#\"}

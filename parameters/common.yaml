@@ -2,5 +2,13 @@
 classes:
 - puppet-b2safe
 
-puppet-b2safe::mymessage: 'B2SAFE'
+#Define operation system for B2SAFE installation: (currently only sl6.6 tested) 
+puppet-b2safe::packages::os: 'sl6.6'
 
+#Database configuration paramenters: db_user, db_password
+puppet-b2safe::postgres::db_user: 'irods'
+puppet-b2safe::postgres::db_password: 'irods'
+
+#iRODs configuration parameters: 
+puppet-b2safe::irods:account_name: 'irods'
+puppet-b2safe::irods:group_name: 'irods'

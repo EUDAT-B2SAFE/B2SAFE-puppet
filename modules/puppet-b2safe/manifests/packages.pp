@@ -4,7 +4,7 @@
 class puppet-b2safe::packages(
 $os
 ){
-
+notify{"Operating system ${os}":}
 case $os{ 
  'sl6.6':{
   notify{"Repos for ${os}":}
