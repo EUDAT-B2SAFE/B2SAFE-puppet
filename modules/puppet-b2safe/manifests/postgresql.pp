@@ -1,8 +1,12 @@
 
 
 class puppet-b2safe::postgresql(
-$db_password='irods',
-$db_user='irods'
+$db_password       ='irods',
+$db_user           ='irods',
+$DATABASEHOSTORIP  = 'localhost',
+$DATABASEPORT      = '0000',
+$DATABASENAME      = 'ICAT',
+
 )
 {
 
@@ -63,7 +67,18 @@ exec{'grand_priv':
   command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"GRANT ALL PRIVILEGES ON DATABASE ICAT TO ${db_user}\"",
  }
 
+#======================================================
+# Copy configuration file for the Database 
+#======================================================
 
+
+file { '/var/lib/irods/packaging/setup_irods_database.sh':
+    ensure  => file,
+    owner   => 'irods',
+    group   => 'irods',
+    mode    => '0755',
+    content => template('puppet-b2safe/setup_irods_database.erb'),
+    }
 
 }
 

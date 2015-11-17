@@ -108,7 +108,7 @@ fi
         # no temp file, this is the first run
         STATUS="firstpass"
     fi
-    #puppet hack: define status as always firstpass 
+    ###########################################puppet hack: define status as always firstpass 
     STATUS="firstpass"
 
     # strip cruft from zone_key
@@ -161,14 +161,16 @@ fi
             echo -n " [tempZone]"
         fi
         echo -n ": "
-        read MYZONE
-        if [ "$MYZONE" == "" ] ; then
-            if [ "$LASTMYZONE" ] ; then
-            MYZONE=$LASTMYZONE
-            else
-            MYZONE="tempZone"
-            fi
-        fi
+        ###################################################puppet hack: 
+        MYZONE="<%= @ZONE %>"
+        #read MYZONE
+        #if [ "$MYZONE" == "" ] ; then
+        #    if [ "$LASTMYZONE" ] ; then
+        #    MYZONE=$LASTMYZONE
+        #    else
+        #    MYZONE="tempZone"
+        #    fi
+        #fi
         # strip all forward slashes
         MYZONE=`echo "${MYZONE}" | sed -e "s/\///g"`
         echo ""
@@ -182,14 +184,17 @@ fi
         echo -n " [1247]"
       fi
       echo -n ": "
-      read MYPORT
-      if [ "$MYPORT" == "" ] ; then
-        if [ "$LASTMYPORT" ] ; then
-          MYPORT=$LASTMYPORT
-        else
-          MYPORT="1247"
-        fi
-      fi
+      #read MYPORT
+      ####################################################puppet hack: 
+      MYPORT="<%= @PORT %>"
+
+     # if [ "$MYPORT" == "" ] ; then
+     #   if [ "$LASTMYPORT" ] ; then
+     #     MYPORT=$LASTMYPORT
+     #   else
+     #     MYPORT="1247"
+     #   fi
+     # fi
       # strip all forward slashes
       MYPORT=`echo "${MYPORT}" | sed -e "s/\///g"`
       echo ""
@@ -202,7 +207,10 @@ fi
         echo -n " [20000]"
       fi
       echo -n ": "
-      read MYRANGESTART
+      ###################################################puppet hack: 
+      #read MYRANGESTART
+      MYRANGESTART="<%= @RANGESTART %>"
+
       if [ "$MYRANGESTART" == "" ] ; then
         if [ "$LASTMYRANGESTART" ] ; then
           MYRANGESTART=$LASTMYRANGESTART
@@ -222,7 +230,9 @@ fi
         echo -n " [20199]"
       fi
       echo -n ": "
-      read MYRANGEEND
+      ###################################################puppet hack:
+      #read MYRANGEEND
+      MYRANGEEND="<%= @RANGEEND %>"
       if [ "$MYRANGEEND" == "" ] ; then
         if [ "$LASTMYRANGEEND" ] ; then
           MYRANGEEND=$LASTMYRANGEEND
@@ -236,13 +246,15 @@ fi
 
       # get resource directory for the vault
       echo -n "iRODS Vault directory"
-      if [ "$LASTMYRESOURCEDIR" ] ; then
+      if [ "$LASTMYRESOUCEDIR" ] ; then
         echo -n " [$LASTMYRESOURCEDIR]"
       else
         echo -n " [$DEFAULTRESOURCEDIR]"
       fi
       echo -n ": "
-      read MYRESOURCEDIR
+      ###################################################puppet hack:
+      #read MYRESOURCEDIR
+      MYRESOURCEDIR="<%= @RESOURCEDIR %>"
       if [ "$MYRESOURCEDIR" == "" ] ; then
         if [ "$LASTMYRESOURCEDIR" ] ; then
           MYRESOURCEDIR=$LASTMYRESOURCEDIR
@@ -260,7 +272,9 @@ fi
         echo -n " [TEMPORARY_zone_key]"
       fi
       echo -n ": "
-      read MYLOCALZONEKEY
+      ###################################################puppet hack:
+      #read MYLOCALZONEKEY
+      MYLOCALZONEKEY="<%= @LOCALZONEKEY %>"
       if [ "$MYLOCALZONEKEY" == "" ] ; then
         if [ "$LASTMYLOCALZONEKEY" ] ; then
           MYLOCALZONEKEY=$LASTMYLOCALZONEKEY
@@ -282,7 +296,9 @@ fi
             echo -n " [TEMPORARY_32byte_negotiation_key]"
           fi
           echo -n ": "
-          read MYNEGOTIATIONKEY
+          ###################################################puppet hack:
+          #read MYNEGOTIATIONKEY
+          MYNEGOTIATIONKEY="<%= @NEGOTIATIONKEY %>"
           if [ "$MYNEGOTIATIONKEY" == "" ] ; then
             if [ "$LASTMYNEGOTIATIONKEY" ] ; then
               MYNEGOTIATIONKEY=$LASTMYNEGOTIATIONKEY
@@ -312,7 +328,9 @@ fi
         echo -n " [1248]"
       fi
       echo -n ": "
-      read MYCONTROLPLANEPORT
+      ###################################################puppet hack:
+      #read MYCONTROLPLANEPORT
+      MYCONTROLPLANEPORT="<%= @CONTROLPLANEPORT %>"
       if [ "$MYCONTROLPLANEPORT" == "" ] ; then
         if [ "$LASTMYCONTROLPLANEPORT" ] ; then
           MYCONTROLPLANEPORT=$LASTMYCONTROLPLANEPORT
@@ -334,7 +352,9 @@ fi
             echo -n " [TEMPORARY__32byte_ctrl_plane_key]"
           fi
           echo -n ": "
-          read MYCONTROLPLANEKEY
+          ############################################puppet hack: 
+          #read MYCONTROLPLANEKEY
+          MYCONTROLPLANEKEY="<%= @CONTROLPLANEKEY %>"
           if [ "$MYCONTROLPLANEKEY" == "" ] ; then
             if [ "$LASTMYCONTROLPLANEKEY" ] ; then
               MYCONTROLPLANEKEY=$LASTMYCONTROLPLANEKEY
@@ -364,7 +384,9 @@ fi
         echo -n " [https://schemas.irods.org/configuration]"
       fi
       echo -n ": "
-      read MYVALIDATIONBASEURI
+      ######################################################puppet hack:
+      #read MYVALIDATIONBASEURI
+      MYVALIDATIONBASEURI="<%= @VALIDATIONBASEURI %>"
       if [ "$MYVALIDATIONBASEURI" == "" ] ; then
         if [ "$LASTMYVALIDATIONBASEURI" ] ; then
           MYVALIDATIONBASEURI=$LASTMYVALIDATIONBASEURI
@@ -382,7 +404,9 @@ fi
         echo -n " [rods]"
       fi
       echo -n ": "
-      read MYADMINNAME
+      ####################################################puppet hack: 
+      MYADMINNAME="<%= @account_name %>"
+      #read MYADMINNAME
       if [ "$MYADMINNAME" == "" ] ; then
         if [ "$LASTMYADMINNAME" ] ; then
           MYADMINNAME=$LASTMYADMINNAME
@@ -396,21 +420,22 @@ fi
 
       if [ $ICAT_SERVER -eq 1 ] ; then
         ADMINPASSWORDLENGTH=0
-        while [ $ADMINPASSWORDLENGTH -eq 0 ] ; do
-          echo -n "iRODS server's administrator password: "
-          # get admin password, without showing on screen
-          read -s MYADMINPASSWORD
-          echo ""
-          # check length (must be greater than zero)
-          ADMINPASSWORDLENGTH=${#MYADMINPASSWORD}
-          if [ $ADMINPASSWORDLENGTH -eq 0 ] ; then
-              echo ""
-              echo "   *** administrator password cannot be empty ***"
-              echo ""
-          fi
-        done
-        echo ""
-        echo ""
+        ####################################################puppet hack:
+        MYADMINPASSWORD="<%= @ADMINPASSWORD %>"
+        #while [ $ADMINPASSWORDLENGTH -eq 0 ] ; do
+        #  echo -n "iRODS server's administrator password: "
+        #  # get admin password, without showing on screen
+        #  #read -s MYADMINPASSWORD
+        #  # check length (must be greater than zero)
+        #  ADMINPASSWORDLENGTH=${#MYADMINPASSWORD}
+        #  if [ $ADMINPASSWORDLENGTH -eq 0 ] ; then
+        #      echo ""
+        #      echo "   *** administrator password cannot be empty ***"
+        #      echo ""
+        #  fi
+        #done
+        #echo ""
+        #echo ""
       fi
 
       # confirm

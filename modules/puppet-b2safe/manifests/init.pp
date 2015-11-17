@@ -21,7 +21,14 @@ $postgres_version='postgres93',
     stage =>'main'    
     }
     
+    class{'puppet-b2safe::b2safe':
+    stage => 'post'
+    }
+    
+ 
 }
+    
+
 
 
 

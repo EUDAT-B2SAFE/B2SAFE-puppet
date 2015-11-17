@@ -2,13 +2,35 @@
 classes:
 - puppet-b2safe
 
-#Define operation system for B2SAFE installation: (currently only sl6.6 tested) 
+#################################################################################
+#Define operation system for B2SAFE installation: (currently only sl6.6 tested) #
+#################################################################################
 puppet-b2safe::packages::os: 'sl6.6'
 
-#Database configuration paramenters: db_user, db_password
-puppet-b2safe::postgres::db_user: 'irods'
-puppet-b2safe::postgres::db_password: 'irods'
+#################################################################################
+#Database configuration paramenters: db_user, db_password                       #
+#################################################################################
+puppet-b2safe::postgresql::db_user: 'irods'
+puppet-b2safe::postgresql::db_password: 'irods'
+puppet-b2safe::postgresql::DATABASEHOSTORIP: 'localhost'
+puppet-b2safe::postgresql::DATABASEPORT: '5432'
+puppet-b2safe::postgresql::DATABASENAME: 'ICAT'
 
-#iRODs configuration parameters: 
-puppet-b2safe::irods:account_name: 'irods'
-puppet-b2safe::irods:group_name: 'irods'
+################################################################################
+#iRODs configuration parameters:                                               #
+################################################################################
+puppet-b2safe::irods::account_name:      'irods'
+puppet-b2safe::irods::group_name:        'irods'
+puppet-b2safe::irods::ZONE:              'tempZone'
+puppet-b2safe::irods::PORT:              '1247'
+puppet-b2safe::irods::RANGESTART:        '20000'
+puppet-b2safe::irods::RANGEEND:          '20199'
+puppet-b2safe::irods::RESOURCEDIR:       '/data/irodsVault'
+puppet-b2safe::irods::LOCALZONEKEY:      'TEMPORARY_zone_key'
+puppet-b2safe::irods::NEGOTIATIONKEY:    'TEMPORARY_32byte_negotiation_key'
+puppet-b2safe::irods::CONTROLPLANEPORT:  '1248'
+puppet-b2safe::irods::CONTROLPLANEKEY:   'TEMPORARY__32byte_ctrl_plane_key'
+puppet-b2safe::irods::VALIDATIONBASEURI: 'https://schemas.irods.org/configuration'
+puppet-b2safe::irods::ADMINPASSWORD:     'changeme'
+
+
