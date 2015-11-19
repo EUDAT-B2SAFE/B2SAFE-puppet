@@ -13,9 +13,10 @@ Automatic installation for EUDAT B2SAFE service
 * puppet version 3.8.x
 
 ## Usage 
-
+* Currently the puppet 3.8.x should be installed before other steps. 
 * Download repository 
-* Apply parameters for Postgresql or use default 
+* Apply your parameters for for configuration of Postgres, iRods and B2SAFE in file 
+  /etc/puppet/parameters/common.yaml 
 * Run puppet in masterless mode: <br>
   puppet apply --modulepath /etc/puppet/modules/ site.pp
 * Execute iRods setup script: 
