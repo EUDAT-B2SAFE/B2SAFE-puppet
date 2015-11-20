@@ -55,7 +55,7 @@ file{'/var/lib/pgsql/9.3/data/pg_hba.conf':
  service{'postgresql-9.3':
   ensure  => 'running',
   require => File['/var/lib/pgsql/9.3/data/pg_hba.conf']
-  }
+  }->
 
  exec{'setup_ICAT_DB':
   unless  => "/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT",
