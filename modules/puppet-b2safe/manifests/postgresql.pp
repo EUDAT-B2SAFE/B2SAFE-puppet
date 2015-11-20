@@ -1,5 +1,3 @@
-
-
 class puppet-b2safe::postgresql(
 $db_password       ='irods',
 $db_user           ='irods',
@@ -15,16 +13,16 @@ $DATABASENAME      = 'ICAT',
 #======================================================
 #Install all required postgresql
 #======================================================
- ensure_packages(['authd','unixODBC','unixODBC-devel']) 
- 
+ ensure_packages(['authd','unixODBC','unixODBC-devel'])
+
  package{'postgresql93-server':
-  ensure  => installed, 
+  ensure  => installed,
   require => Package ['authd','unixODBC','unixODBC-devel'],
   provider => 'yum',
   }->
 
 package{'postgresql93-odbc':
-  ensure  => installed, 
+  ensure  => installed,
   require => Package ['authd','unixODBC','unixODBC-devel'],
   provider => 'yum',
   }->
@@ -36,24 +34,23 @@ package { 'irods-database-plugin-postgres93':
     require  =>Package['irods-icat-4.1.5']
    }  ->
 
-
-
-  exec{'postgresql-9.3':
-   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-   command => 'service postgresql-9.3 initdb && service postgresql-9.3 start'
-  }
-
-#=====================================================
-#Setup ICAT DB, user access and grant priviledges 
-#=====================================================
-
- file{'/var/lib/pgsql/9.3/data/pg_hba.conf':
-  ensure => present, 
+file{'/var/lib/pgsql/9.3/data/pg_hba.conf':
+  ensure => present,
   owner  => 'postgres',
   group  => 'postgres',
   source => 'puppet:///modules/puppet-b2safe/pg_hba.conf',
   notify => Service ['postgresql-9.3']
   }->
+
+
+  exec{'postgresql-9.3':
+   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+  command => 'service postgresql-9.3 initdb && service postgresql-9.3 start'
+  } ->
+
+#=====================================================
+#Setup ICAT DB, user access and grant priviledges 
+#=====================================================
 
  service{'postgresql-9.3':
   ensure  => 'running',
@@ -89,4 +86,25 @@ file { '/var/lib/irods/packaging/setup_irods_database.sh':
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
