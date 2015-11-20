@@ -43,10 +43,17 @@ file{'/var/lib/pgsql/9.3/data/pg_hba.conf':
   }->
 
 
-  exec{'postgresql-9.3':
+  exec{'initdb':
    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-  command => 'service postgresql-9.3 initdb && service postgresql-9.3 start'
+  command => 'service postgresql-9.3 initdb'
   } ->
+
+exec{'postgresql-9.3':
+   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+  command => 'service postgresql-9.3 start'
+  } ->
+
+
 
 #=====================================================
 #Setup ICAT DB, user access and grant priviledges 
