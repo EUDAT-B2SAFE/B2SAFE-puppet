@@ -30,27 +30,20 @@ package{'postgresql93-odbc':
 package { 'irods-database-plugin-postgres93':
     provider => rpm,
     ensure   => installed,
-    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm",
+    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64
+.rpm",
     require  =>Package['irods-icat-4.1.5']
    }  ->
 
-file{'/var/lib/pgsql/9.3/data/pg_hba.conf':
-  ensure => present,
-  owner  => 'postgres',
-  group  => 'postgres',
-  source => 'puppet:///modules/puppet-b2safe/pg_hba.conf',
-  notify => Service ['postgresql-9.3']
-  }->
-
-
   exec{'initdb':
    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-  command => 'service postgresql-9.3 initdb'
+   command => 'service postgresql-9.3 initdb'
   } ->
 
 exec{'postgresql-9.3':
    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-  command => 'service postgresql-9.3 start'
+   command => 'service postgresql-9.3 start',
+   require => Exec['initdb']
   } ->
 
 
@@ -59,9 +52,17 @@ exec{'postgresql-9.3':
 #Setup ICAT DB, user access and grant priviledges 
 #=====================================================
 
+ file{'/var/lib/pgsql/9.3/data/pg_hba.conf':
+  ensure => present,
+  owner  => 'postgres',
+  group  => 'postgres',
+  source => 'puppet:///modules/puppet-b2safe/pg_hba.conf',
+  }->
+
+
  service{'postgresql-9.3':
   ensure  => 'running',
-  require => File['/var/lib/pgsql/9.3/data/pg_hba.conf']
+  subscribe => File['/var/lib/pgsql/9.3/data/pg_hba.conf']
   }->
 
  exec{'setup_ICAT_DB':
@@ -93,7 +94,6 @@ file { '/var/lib/irods/packaging/setup_irods_database.sh':
     }
 
 }
-
 
 
 
