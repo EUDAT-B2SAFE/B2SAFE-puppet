@@ -29,6 +29,14 @@ package{'postgresql93-odbc':
   provider => 'yum',
   }->
 
+package { 'irods-database-plugin-postgres93':
+    provider => rpm,
+    ensure   => installed,
+    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm",
+    require  =>Package['irods-icat-4.1.5']
+   }  ->
+
+
 
   exec{'postgresql-9.3':
    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
@@ -74,8 +82,8 @@ exec{'grand_priv':
 
 file { '/var/lib/irods/packaging/setup_irods_database.sh':
     ensure  => file,
-    owner   => 'irods',
-    group   => 'irods',
+    owner   => 'root',
+    group   => 'root',
     mode    => '0755',
     content => template('puppet-b2safe/setup_irods_database.erb'),
     }

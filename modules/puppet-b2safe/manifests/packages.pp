@@ -22,7 +22,7 @@ case $os{
    }   
 
 
- ensure_packages(['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests'])
+ ensure_packages(['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests','authd'])
 
   package { 'irods-icat-4.1.5':
     provider => rpm,
@@ -31,12 +31,6 @@ case $os{
     require  =>Package['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests']
    }
  
- package { 'irods-database-plugin-postgres93':
-    provider => rpm,
-    ensure   => installed,
-    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm",
-    require  =>Package['irods-icat-4.1.5']
-   }  
   }
 
  default: {
