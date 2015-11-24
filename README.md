@@ -12,11 +12,12 @@ Automatic installation for EUDAT B2SAFE service
 ## Puppet version 
 * puppet version 3.8.x
 
-## Usage 
+## Usage steps: 
 * Currently the puppet 3.8.x should be installed: 
   * rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
   * yum install puppet-3.8.2
-* Download repository in e.g. /home/ 
+* Download repository in e.g. /home/:<br>
+  git clone https://github.com/B2SAFE/puppet-b2safe.git 
 * Replace completely /etc/puppet with downloaded repository <br>
    rm -rf /etc/puppet <br>
    mv puppet-b2safe /etc/puppet
@@ -28,6 +29,6 @@ Automatic installation for EUDAT B2SAFE service
 * Execute iRods setup script: 
   /var/lib/irods/packaging/setup_irods.sh
 * Executre B2SAFE install script: 
-  cd /opt/eudat/b2safe/packaging/
+  cd /opt/eudat/b2safe/packaging/<br>
   ./install.sh  
  
