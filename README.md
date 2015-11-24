@@ -14,16 +14,16 @@ Automatic installation for EUDAT B2SAFE service
 
 ## Usage 
 * Currently the puppet 3.8.x should be installed: 
-** rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
-** yum install puppet-3.8.2
+  * rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
+  * yum install puppet-3.8.2
 * Download repository in e.g. /home/ 
 * Replace completely /etc/puppet with downloaded repository <br>
-   rm -rf /etc/puppet 
+   rm -rf /etc/puppet <br>
    mv puppet-b2safe /etc/puppet
-* Apply your parameters for for configuration of Postgres, iRods and B2SAFE in file 
+* Apply your parameters for for configuration of Postgres, iRods and B2SAFE in file:<br>
   /etc/puppet/parameters/common.yaml 
 * Run puppet in masterless mode: <br>
-   cd /etc/puppet/
+   cd /etc/puppet/<br>
    puppet apply --modulepath /etc/puppet/modules/ site.pp
 * Execute iRods setup script: 
   /var/lib/irods/packaging/setup_irods.sh
