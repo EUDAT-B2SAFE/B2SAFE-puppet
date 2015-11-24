@@ -77,7 +77,7 @@ exec{'postgresql-9.3':
 
 exec{'grand_priv':
   command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
- }
+ }->
 
 #======================================================
 # Copy configuration file for the Database 
