@@ -13,7 +13,7 @@ Automatic installation for EUDAT B2SAFE service
 * puppet version 3.8.x
 
 ## Usage steps: 
-* Currently the puppet 3.8.x should be installed: 
+* Currently the puppet 3.8.x should be installed:<br> 
   rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
   yum install puppet-3.8.2
 * Download repository in e.g. /home/:<br>
