@@ -26,8 +26,8 @@ Automatic installation for EUDAT B2SAFE service
 * Run puppet in masterless mode: <br>
    cd /etc/puppet/<br>
    puppet apply --modulepath /etc/puppet/modules/ site.pp
-* Execute iRods setup script: 
+* Execute iRods setup script:<br>
   /var/lib/irods/packaging/setup_irods.sh
-* Executre B2SAFE install script: 
+* As irods user execute B2SAFE install script: <br>
   cd /opt/eudat/b2safe/packaging/<br>
   ./install.sh  

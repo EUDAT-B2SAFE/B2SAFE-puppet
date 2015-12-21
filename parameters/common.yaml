@@ -3,7 +3,7 @@ classes:
 - puppet-b2safe
 
 ###############################################################################
-#Define operation system for B2SAFE installation: (currently only sl6.6 tested) #
+#Define operation system for B2SAFE installation: (currently sl6.6 and CentOS7 tested) #
 #################################################################################
 puppet-b2safe::packages::os: 'CentOS7'
 
@@ -41,5 +41,4 @@ puppet-b2safe::b2safe::BASE_URI:         ''
 puppet-b2safe::b2safe::USERNAME:         ''
 puppet-b2safe::b2safe::PREFIX:           ''
 puppet-b2safe::b2safe::USERS:            ''
-
 

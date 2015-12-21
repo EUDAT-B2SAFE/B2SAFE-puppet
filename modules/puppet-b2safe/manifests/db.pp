@@ -12,7 +12,14 @@ $os=hiera('puppet-b2safe::packages::os')
   case $os{ 
   'sl6.6':{
   class {'puppet-b2safe::postgresql':}
-  }	
+  }
+  'CentOS7':{
+  class {'puppet-b2safe::postgresql':}
+  }     
+  default: {
+  notify{"in default: nothing to do":}
+  }      
+	
  }
 }
  

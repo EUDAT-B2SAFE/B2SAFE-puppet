@@ -41,6 +41,16 @@ case $os{
     source   => "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm",
    }->
 
+   package { 'pgdg-centos93-9.3-2':
+    provider => rpm,
+    ensure   => installed,
+    source   => "http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-2.noarch.rpm",
+   }->
+
+
+
+
+
 class {'install_packages':}-> 
 
 

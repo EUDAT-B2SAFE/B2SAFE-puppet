@@ -10,6 +10,29 @@ $DATABASENAME      = 'ICAT',
 
   notify {"IN POSTGRESQL":}
 
+$os=hiera('puppet-b2safe::packages::os')
+
+case $os{
+'sl6.6':{
+
+class{'install_postgres_packages_sl66':} ->
+class{'setup_icat_db':}
+
+}
+
+'CentOS7':{
+
+class{'install_postgres_packages_centos7':} ->
+class{'setup_icat_db':}
+
+
+   }
+ }
+}
+
+
+class install_postgres_packages_sl66{
+
 #======================================================
 #Install all required postgresql
 #======================================================
@@ -43,10 +66,56 @@ exec{'postgresql-9.3':
    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
    command => 'service postgresql-9.3 start',
    require => Exec['initdb']
+  }
+}
+
+
+class install_postgres_packages_centos7{
+#======================================================
+#Install all required postgresql
+#======================================================
+ ensure_packages(['authd','unixODBC','unixODBC-devel'])
+
+ package{'postgresql93-server':
+  ensure  => installed,
+  require => Package ['authd','unixODBC','unixODBC-devel'],
+  provider => 'yum',
+  }->
+
+package{'postgresql93-odbc':
+  ensure  => installed,
+  require => Package ['authd','unixODBC','unixODBC-devel'],
+  provider => 'yum',
+  }->
+
+package { 'irods-database-plugin-postgres93':
+    provider => rpm,
+    ensure   => installed,
+    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm",
+    require  =>Package['irods-icat-4.1.5']
+   }  ->
+
+  exec{'initdb':
+   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+   unless => 'test -d /var/lib/pgsql/9.3/data',
+   command => '/usr/pgsql-9.3/bin/postgresql93-setup initdb'
   } ->
 
+exec{'postgresql-9.3':
+   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+   command => 'service postgresql-9.3 start',
+   require => Exec['initdb']
+  }
+}
 
 
+
+
+class setup_icat_db(
+$db_password       ='irods',
+$db_user           ='irods',
+)
+{
 #=====================================================
 #Setup ICAT DB, user access and grant priviledges 
 #=====================================================
@@ -78,11 +147,9 @@ exec{'postgresql-9.3':
 exec{'grand_priv':
   command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
  }->
-
 #======================================================
 # Copy configuration file for the Database 
 #======================================================
-
 
 file { '/var/lib/irods/packaging/setup_irods_database.sh':
     ensure  => file,
@@ -91,26 +158,6 @@ file { '/var/lib/irods/packaging/setup_irods_database.sh':
     mode    => '0755',
     content => template('puppet-b2safe/setup_irods_database.erb'),
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
