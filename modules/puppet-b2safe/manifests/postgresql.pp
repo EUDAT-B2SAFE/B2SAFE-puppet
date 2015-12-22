@@ -98,7 +98,7 @@ package { 'irods-database-plugin-postgres93':
 
   exec{'initdb':
    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-   unless => 'test -d /var/lib/pgsql/9.3/data',
+   creates => '/var/lib/pgsql/9.3/data/postgresql.conf',
    command => '/usr/pgsql-9.3/bin/postgresql93-setup initdb'
   } ->
 
