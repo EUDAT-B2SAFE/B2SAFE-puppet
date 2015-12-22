@@ -4,10 +4,10 @@ Automatic installation for EUDAT B2SAFE service
 
 ##Status
 
-* Current implementation tested on Scientific Linux 6 
+* Current implementation tested on Scientific Linux 6.6 and CentOS 7.2  
 * Installation and configuration of Postgresql 9.3 
 * Installation of iRods4.1.5
-* Installation of B2SAFE package  
+* Installation of B2SAFE package  3.0-2
 
 ## Puppet version 
 * puppet version 3.8.x
@@ -21,7 +21,7 @@ Automatic installation for EUDAT B2SAFE service
 * Replace completely /etc/puppet with downloaded repository <br>
    rm -rf /etc/puppet <br>
    mv B2SAFE-puppet /etc/puppet
-* Apply your parameters for for configuration of Postgres, iRods and B2SAFE in file:<br>
+* Choose between SL6.6 or CentOS7 and apply your parameters for configuration of Postgres, iRods and B2SAFE in file:<br>
   /etc/puppet/parameters/common.yaml 
 * Run puppet in masterless mode: <br>
    cd /etc/puppet/<br>
@@ -29,5 +29,6 @@ Automatic installation for EUDAT B2SAFE service
 * Execute iRods setup script:<br>
   /var/lib/irods/packaging/setup_irods.sh
 * As irods user execute B2SAFE install script: <br>
+  su - irods <br>
   cd /opt/eudat/b2safe/packaging/<br>
   ./install.sh  
