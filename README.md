@@ -23,7 +23,7 @@ Automatic installation for EUDAT B2SAFE service
 * Install git: 
   sudo yum install git 
 * Download repository in e.g. /home/:<br>
-  sudo https://github.com/EUDAT-B2SAFE/B2SAFE-puppet.git
+  sudo git clone https://github.com/EUDAT-B2SAFE/B2SAFE-puppet.git
 * Replace completely /etc/puppet with downloaded repository <br>
    sudo rm -rf /etc/puppet <br>
    sudo mv B2SAFE-puppet /etc/puppet
