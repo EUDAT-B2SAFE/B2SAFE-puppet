@@ -92,8 +92,8 @@ package{'postgresql93-odbc':
 package { 'irods-database-plugin-postgres93':
     provider => rpm,
     ensure   => installed,
-    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm",
-    require  =>Package['irods-icat-4.1.5']
+    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm",
+    require  =>Package['irods-icat-4.1.6']
    }  ->
 
   exec{'initdb':

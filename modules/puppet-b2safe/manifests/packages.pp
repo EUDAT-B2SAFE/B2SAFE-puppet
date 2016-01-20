@@ -47,17 +47,13 @@ case $os{
     source   => "http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-2.noarch.rpm",
    }->
 
-
-
-
-
 class {'install_packages':}-> 
 
 
-  package { 'irods-icat-4.1.5':
+  package { 'irods-icat-4.1.6':
     provider => rpm,
     ensure   => installed,
-    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-icat-4.1.5-centos6-x86_64.rpm",
+    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-icat-4.1.6-centos7-x86_64.rpm",
     require  =>Package['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests']
    }
 }
