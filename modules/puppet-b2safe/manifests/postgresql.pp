@@ -65,7 +65,7 @@ package { 'irods-database-plugin-postgres93':
 
 exec{'postgresql-9.3':
    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-   command => 'systemctl start postgresql-9.3',
+   command => 'service postgresql-9.3 start',
    require => Exec['initdb']
   }
 }
