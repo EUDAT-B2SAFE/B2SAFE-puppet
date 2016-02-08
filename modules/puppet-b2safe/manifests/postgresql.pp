@@ -25,7 +25,9 @@ class{"install_postgres_packages_centos7":
      pgdata=>$PGDATA
      } ->
 
-class{'setup_icat_db':}
+class{'setup_icat_db':
+    pgdata=>$PGDATA
+    }
    }
  }
 }
@@ -126,13 +128,14 @@ exec{'postgresql-9.3':
 class setup_icat_db(
 $db_password       ='irods',
 $db_user           ='irods',
+$pgdata
 )
 {
 #=====================================================
 #Setup ICAT DB, user access and grant priviledges 
 #=====================================================
 
- file{"${PGDATA}/pg_hba.conf":
+ file{"${pgdata}/pg_hba.conf":
   ensure => present,
   owner  => 'postgres',
   group  => 'postgres',
@@ -142,7 +145,7 @@ $db_user           ='irods',
 
  service{'postgresql-9.3':
   ensure  => 'running',
-  subscribe => File["${PGDATA}/pg_hba.conf"]
+  subscribe => File["${pgdata}/pg_hba.conf"]
   }->
 
  exec{'setup_ICAT_DB':
