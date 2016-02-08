@@ -15,7 +15,7 @@ puppet-b2safe::postgresql::db_password: 'irods'
 puppet-b2safe::postgresql::DATABASEHOSTORIP: 'localhost'
 puppet-b2safe::postgresql::DATABASEPORT: '5432'
 puppet-b2safe::postgresql::DATABASENAME: 'ICAT'
-
+puppet-b2safe::postgresql::PGDATA: '/var/lib/test9.3' 
 ################################################################################
 #iRODs configuration parameters:                                               #
 ################################################################################
@@ -36,8 +36,7 @@ puppet-b2safe::irods::ADMINPASSWORD:     'changeme'
 #################################################################################
 ##B2SAFE configuration parameters:                                               #
 #################################################################################
-puppet-b2safe::b2safe::BASE_URI:         'http://...'
-puppet-b2safe::b2safe::USERNAME:         ''
-puppet-b2safe::b2safe::PREFIX:           ''
+puppet-b2safe::b2safe::BASE_URI:         'http://pid-vm01.gwdg.de:8082/handles/'
+puppet-b2safe::b2safe::USERNAME:         'kitpid'
+puppet-b2safe::b2safe::PREFIX:           '11325'
 puppet-b2safe::b2safe::USERS:            'irods#Zone5'
-

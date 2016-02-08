@@ -4,7 +4,7 @@ $db_user           ='irods',
 $DATABASEHOSTORIP  = 'localhost',
 $DATABASEPORT      = '0000',
 $DATABASENAME      = 'ICAT',
-
+$PGDATA            = "var/lib/pgsql/9.3/data/"
 )
 {
 
@@ -21,11 +21,11 @@ class{'setup_icat_db':}
 }
 
 'CentOS7':{
+class{"install_postgres_packages_centos7":
+     pgdata=>$PGDATA
+     } ->
 
-class{'install_postgres_packages_centos7':} ->
 class{'setup_icat_db':}
-
-
    }
  }
 }
@@ -71,7 +71,9 @@ exec{'postgresql-9.3':
 }
 
 
-class install_postgres_packages_centos7{
+class install_postgres_packages_centos7($pgdata){
+
+
 #======================================================
 #Install all required postgresql
 #======================================================
@@ -81,24 +83,33 @@ class install_postgres_packages_centos7{
   ensure  => installed,
   require => Package ['authd','unixODBC','unixODBC-devel'],
   provider => 'yum',
-  }->
+  } ->
 
-package{'postgresql93-odbc':
+ package{'postgresql93-odbc':
   ensure  => installed,
   require => Package ['authd','unixODBC','unixODBC-devel'],
   provider => 'yum',
-  }->
+  } ->
 
-package { 'irods-database-plugin-postgres93':
-    provider => rpm,
-    ensure   => installed,
-    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm",
-    require  =>Package['irods-icat-4.1.6']
-   }  ->
+ package { 'irods-database-plugin-postgres93':
+  provider => rpm,
+  ensure   => installed,
+  source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm",
+  require  =>Package['irods-icat-4.1.6']
+  } ->
+
+ file {'/usr/lib/systemd/system/postgresql-9.3.service':
+  ensure => present, 
+  } -> 
+ exec { 'Change PGDATA Path':
+  path  => '/bin:/usr/bin:/sbin:/usr/sbin',
+  command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service"
+  } ->
+
 
   exec{'initdb':
    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-   creates => '/var/lib/pgsql/9.3/data/postgresql.conf',
+   creates => "${pgdata}/postgresql.conf",
    command => '/usr/pgsql-9.3/bin/postgresql93-setup initdb'
   } ->
 
@@ -121,7 +132,7 @@ $db_user           ='irods',
 #Setup ICAT DB, user access and grant priviledges 
 #=====================================================
 
- file{'/var/lib/pgsql/9.3/data/pg_hba.conf':
+ file{"${PGDATA}/pg_hba.conf":
   ensure => present,
   owner  => 'postgres',
   group  => 'postgres',
@@ -131,7 +142,7 @@ $db_user           ='irods',
 
  service{'postgresql-9.3':
   ensure  => 'running',
-  subscribe => File['/var/lib/pgsql/9.3/data/pg_hba.conf']
+  subscribe => File["${PGDATA}/pg_hba.conf"]
   }->
 
  exec{'setup_ICAT_DB':
