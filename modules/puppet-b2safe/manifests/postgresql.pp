@@ -29,6 +29,16 @@ class{'setup_icat_db':
     pgdata=>$PGDATA
     }
    }
+
+'Scientific7':{
+class{"install_postgres_packages_scientific7":
+     pgdata=>$PGDATA
+     } ->
+
+class{'setup_icat_db':
+    pgdata=>$PGDATA
+    }
+   }
  }
 }
 
@@ -74,7 +84,6 @@ exec{'postgresql-9.3':
 
 
 class install_postgres_packages_centos7($pgdata){
-
 
 #======================================================
 #Install all required postgresql
@@ -123,7 +132,53 @@ exec{'postgresql-9.3':
 }
 
 
+class install_postgres_packages_scientific7($pgdata){
 
+
+#======================================================
+#Install all required postgresql
+#======================================================
+ ensure_packages(['authd','unixODBC','unixODBC-devel'])
+
+ package{'postgresql93-server':
+  ensure  => installed,
+  require => Package ['authd','unixODBC','unixODBC-devel'],
+  provider => 'yum',
+  } ->
+
+ package{'postgresql93-odbc':
+  ensure  => installed,
+  require => Package ['authd','unixODBC','unixODBC-devel'],
+  provider => 'yum',
+  } ->
+
+ package { 'irods-database-plugin-postgres93':
+  provider => rpm,
+  ensure   => installed,
+  source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-database-plugin-postgres93-1.7-centos7-x86_64.rpm",
+  require  =>Package['irods-icat-4.1.7']
+  } ->
+
+ file {'/usr/lib/systemd/system/postgresql-9.3.service':
+  ensure => present,
+  } ->
+ exec { 'Change PGDATA Path':
+  path  => '/bin:/usr/bin:/sbin:/usr/sbin',
+  command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service"
+  } ->
+
+ exec{'initdb':
+   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+   creates => "${pgdata}/postgresql.conf",
+   command => '/usr/pgsql-9.3/bin/postgresql93-setup initdb'
+  } ->
+
+exec{'postgresql-9.3':
+   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+   command => 'systemctl start postgresql-9.3',
+   require => Exec['initdb']
+  }
+}
 
 class setup_icat_db(
 $db_password       ='irods',

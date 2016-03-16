@@ -58,6 +58,32 @@ class {'install_packages':}->
    }
 }
 
+'Scientific7':{
+  notify{"Repos for ${os}":}
+
+  package { 'epel-release-7-5':
+    provider => rpm,
+    ensure   => installed,
+    source   => "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm",
+   }->
+
+   package { 'pgdg-sl93-9.3-2':
+    provider => rpm,
+    ensure   => installed,
+    source   => "http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-sl93-9.3-2.noarch.rpm",
+   }->
+
+class {'install_packages':}->
+
+
+  package { 'irods-icat-4.1.7':
+    provider => rpm,
+    ensure   => installed,
+    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-icat-4.1.7-centos7-x86_64.rpm",
+    require  =>Package['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests']
+   }
+}
+
 
 
  default: {

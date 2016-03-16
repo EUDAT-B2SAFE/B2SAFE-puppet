@@ -3,9 +3,9 @@ classes:
 - puppet-b2safe
 
 ###############################################################################
-#Define operation system for B2SAFE installation: (currently sl6.6 and CentOS7 tested) #
+#Define operation system for B2SAFE installation: (currentl options: sl6.6 and CentOS7, Scientific7) #
 #################################################################################
-puppet-b2safe::packages::os: 'CentOS7'
+puppet-b2safe::packages::os: 'Scientific7'
 
 #################################################################################
 #Database configuration paramenters: db_user, db_password                       #
