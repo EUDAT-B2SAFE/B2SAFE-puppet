@@ -19,9 +19,10 @@ $USERS =''
   mode    => '0644'
  }
 
+#Clone b2safe version 3.0.2 (work around) 
  exec{'get_B2SAFE_rpm':
  path => [ '/bin', '/usr/bin', '/usr/local/bin' ],
- command => 'git clone https://github.com/EUDAT-B2SAFE/B2SAFE-core /home/irods/B2SAFE-core',
+ command => 'git clone https://github.com/EUDAT-B2SAFE/B2SAFE-core /home/irods/B2SAFE-core && cd /home/irods/B2SAFE-core && git reset --hard 6e30b3c32051710e2630aa7255739f28828940f8',
  creates => '/home/irods/B2SAFE-core',
  user    => 'irods'
  } ->
