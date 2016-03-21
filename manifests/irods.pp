@@ -13,7 +13,7 @@ class b2safe::irods(
   $CONTROLPLANEPORT  = '1248',
   $CONTROLPLANEKEY   = 'TEMPORARY__32byte_ctrl_plane_key',
   $VALIDATIONBASEURI = 'https://schemas.irods.org/configuration',
-  $ADMINPASSWORD     = 'changeme',
+  $ADMINPASSWORD     = undef,
 
 
 ){

@@ -1,5 +1,5 @@
 class b2safe::postgresql(
-  $db_password       = 'irods',
+  $db_password       = undef,
   $db_user           = 'irods',
   $DATABASEHOSTORIP  = 'localhost',
   $DATABASEPORT      = '0000',
@@ -180,7 +180,7 @@ class install_postgres_packages_scientific7($pgdata){
 }
 
 class setup_icat_db(
-  $db_password       ='irods',
+  $db_password       = undef,
   $db_user           ='irods',
   $pgdata
 )
