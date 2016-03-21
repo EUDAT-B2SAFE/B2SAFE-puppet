@@ -10,33 +10,33 @@ class puppet-b2safe::postgresql(
 
   notify { "IN POSTGRESQL": }
 
-  $os=hiera('puppet-b2safe::packages::os')
+  case $::operatingsystem{
+    'Scientific': {
+      case $::operatingsystemrelease{
+        6.6: {
+          class{ 'install_postgres_packages_sl66': } ->
+          class{ 'setup_icat_db': }
+        }
+        7.0, 7.1: {
+          class{ "install_postgres_packages_scientific7":
+            pgdata=>$PGDATA
+          } ->
 
-  case $os{
-    'sl6.6': {
-
-      class{ 'install_postgres_packages_sl66': } ->
-      class{ 'setup_icat_db': }
-
-    }
-
-    'CentOS7': {
-      class{ "install_postgres_packages_centos7":
-        pgdata=>$PGDATA
-      } ->
-
-      class{ 'setup_icat_db':
-        pgdata=>$PGDATA
+          class{ 'setup_icat_db':
+            pgdata=>$PGDATA
+          }
+        }
       }
     }
+    'CentOS': {
+      if $::operatingsystemmajrelease == 7{
+        class{ "install_postgres_packages_centos7":
+          pgdata=>$PGDATA
+        } ->
 
-    'Scientific7': {
-      class{ "install_postgres_packages_scientific7":
-        pgdata=>$PGDATA
-      } ->
-
-      class{ 'setup_icat_db':
-        pgdata=>$PGDATA
+        class{ 'setup_icat_db':
+          pgdata=>$PGDATA
+        }
       }
     }
   }
