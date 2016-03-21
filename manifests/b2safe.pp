@@ -1,10 +1,10 @@
 #Class irods is used to perform irods initial configuration
 
 class puppet-b2safe::b2safe(
-  $BASE_URI='',
-  $USERNAME='',
-  $PREFIX ='',
-  $USERS =''
+  $BASE_URI=undef,
+  $USERNAME=undef,
+  $PREFIX =undef,
+  $USERS =undef
 ){
 
   package{ 'rpm-build':
