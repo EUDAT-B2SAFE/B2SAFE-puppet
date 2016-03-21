@@ -53,20 +53,20 @@ class install_postgres_packages_sl66{
   package{ 'postgresql93-server':
     ensure  => installed,
     require => Package ['authd','unixODBC','unixODBC-devel'],
-  provider => 'yum',
+    provider => 'yum',
   }->
 
   package{ 'postgresql93-odbc':
     ensure  => installed,
     require => Package ['authd','unixODBC','unixODBC-devel'],
-  provider => 'yum',
+    provider => 'yum',
   }->
 
   package { 'irods-database-plugin-postgres93':
     provider => rpm,
     ensure   => installed,
-    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm",
-    require  =>Package['irods-icat-4.1.5']
+    source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm',
+    require  => Package['irods-icat-4.1.5']
   }  ->
 
   exec{ 'initdb':
@@ -93,19 +93,19 @@ class install_postgres_packages_centos7($pgdata){
   package{ 'postgresql93-server':
     ensure  => installed,
     require => Package ['authd','unixODBC','unixODBC-devel'],
-  provider => 'yum',
+    provider => 'yum',
   } ->
 
   package{ 'postgresql93-odbc':
     ensure  => installed,
     require => Package ['authd','unixODBC','unixODBC-devel'],
-  provider => 'yum',
+    provider => 'yum',
   } ->
 
   package { 'irods-database-plugin-postgres93':
     provider => rpm,
     ensure   => installed,
-    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm",
+    source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm',
     require  =>Package['irods-icat-4.1.6']
   } ->
 
@@ -116,7 +116,6 @@ class install_postgres_packages_centos7($pgdata){
     path    => '/bin:/usr/bin:/sbin:/usr/sbin',
     command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service"
   } ->
-
 
   exec{ 'initdb':
     path    => '/bin:/usr/bin:/sbin:/usr/sbin',
@@ -143,20 +142,20 @@ class install_postgres_packages_scientific7($pgdata){
   package{ 'postgresql93-server':
     ensure  => installed,
     require => Package ['authd','unixODBC','unixODBC-devel'],
-  provider => 'yum',
+    provider => 'yum',
   } ->
 
   package{ 'postgresql93-odbc':
     ensure  => installed,
     require => Package ['authd','unixODBC','unixODBC-devel'],
-  provider => 'yum',
+    provider => 'yum',
   } ->
 
   package { 'irods-database-plugin-postgres93':
     provider => rpm,
     ensure   => installed,
-    source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-database-plugin-postgres93-1.7-centos7-x86_64.rpm",
-    require  =>Package['irods-icat-4.1.7']
+    source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-database-plugin-postgres93-1.7-centos7-x86_64.rpm',
+    require  => Package['irods-icat-4.1.7']
   } ->
 
   file { '/usr/lib/systemd/system/postgresql-9.3.service':
