@@ -36,10 +36,8 @@ class puppet-b2safe::irods(
 
   user { $account_name:
     ensure  => 'present',
-    gid     => '0',
-    home    => '/home/irods',
+    home    => "/home/${account_name}",
     shell   => '/bin/bash',
-    uid     => '776',
   }
 
   #Prepare configuration files
