@@ -1,7 +1,7 @@
 ## Class repos 
 # setup source files for required repositories depending on operation system
 
-class puppet-b2safe::packages(
+class b2safe::packages(
 ){
   notify{ "Operating system ${::operatingsystem}": }
   case $::operatingsystem{

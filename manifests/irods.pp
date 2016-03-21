@@ -1,6 +1,6 @@
 #Class irods is used to perform irods initial configuration
 
-class puppet-b2safe::irods(
+class b2safe::irods(
   $account_name      = 'irods',
   $group_name        = 'irods',
   $ZONE              = 'zone',

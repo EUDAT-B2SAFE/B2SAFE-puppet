@@ -1,4 +1,4 @@
-class puppet-b2safe::postgresql(
+class b2safe::postgresql(
   $db_password       = 'irods',
   $db_user           = 'irods',
   $DATABASEHOSTORIP  = 'localhost',
@@ -228,5 +228,3 @@ class setup_icat_db(
     content => template('puppet-b2safe/setup_irods_database.erb'),
   }
 }
-
-

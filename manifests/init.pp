@@ -4,7 +4,7 @@
 # 
 # 
 
-class puppet-b2safe(
+class b2safe(
 )
 {
 
@@ -25,8 +25,3 @@ class puppet-b2safe(
 
 
 }
-    
-
-
-
-

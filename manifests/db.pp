@@ -5,7 +5,7 @@
 #
 #
 
-class puppet-b2safe::db(
+class b2safe::db(
 ){
   case $::operatingsystem{
     'CentOS', 'Scientific': {
