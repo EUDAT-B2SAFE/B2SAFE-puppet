@@ -27,17 +27,11 @@ class puppet-b2safe::irods(
   }
 
   #Create irods user
-
-  file { "/home/${account_name}":
-    ensure => 'directory',
-    owner  => "${account_name}",
-    mode   => 700
-  }
-
   user { $account_name:
-    ensure  => 'present',
-    home    => "/home/${account_name}",
-    shell   => '/bin/bash',
+    ensure     => 'present',
+    home       => "/home/${account_name}",
+    shell      => '/bin/bash',
+    managehome => true,
   }
 
   #Prepare configuration files
