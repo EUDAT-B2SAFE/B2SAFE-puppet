@@ -1,10 +1,10 @@
 class puppet-b2safe::postgresql(
-  $db_password       ='irods',
-  $db_user           ='irods',
+  $db_password       = 'irods',
+  $db_user           = 'irods',
   $DATABASEHOSTORIP  = 'localhost',
   $DATABASEPORT      = '0000',
   $DATABASENAME      = 'ICAT',
-  $PGDATA            = "var/lib/pgsql/9.3/data/"
+  $PGDATA            = 'var/lib/pgsql/9.3/data/'
 )
 {
 
