@@ -49,7 +49,7 @@ class b2safe::b2safe(
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('puppet-b2safe/install.erb'),
+    content => template('b2safe/install.erb'),
   }
 
 

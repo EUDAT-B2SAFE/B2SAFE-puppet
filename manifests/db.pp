@@ -9,7 +9,7 @@ class b2safe::db(
 ){
   case $::operatingsystem{
     'CentOS', 'Scientific': {
-      class { 'puppet-b2safe::postgresql': }
+      class { 'b2safe::postgresql': }
     }
     default: { notify { 'in default: nothing to do': } }
   }

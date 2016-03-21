@@ -41,7 +41,7 @@ class b2safe::irods(
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('puppet-b2safe/setup_irods_service_account.erb'),
+    content => template('b2safe/setup_irods_service_account.erb'),
   }
 
   file { '/var/lib/irods/packaging/setup_irods_configuration.sh':
@@ -49,7 +49,7 @@ class b2safe::irods(
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('puppet-b2safe/setup_irods_configuration.erb'),
+    content => template('b2safe/setup_irods_configuration.erb'),
   }
 
 }

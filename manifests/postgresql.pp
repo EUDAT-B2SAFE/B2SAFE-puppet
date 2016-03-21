@@ -193,7 +193,7 @@ class setup_icat_db(
     ensure => present,
     owner  => 'postgres',
     group  => 'postgres',
-    source => 'puppet:///modules/puppet-b2safe/pg_hba.conf',
+    source => 'puppet:///modules/b2safe/pg_hba.conf',
   }->
 
 
@@ -225,6 +225,6 @@ class setup_icat_db(
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('puppet-b2safe/setup_irods_database.erb'),
+    content => template('b2safe/setup_irods_database.erb'),
   }
 }
