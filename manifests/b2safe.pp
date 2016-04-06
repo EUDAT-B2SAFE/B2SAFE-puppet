@@ -1,10 +1,11 @@
 #Class irods is used to perform irods initial configuration
 
 class b2safe::b2safe(
-  $base_uri = undef,
-  $username = undef,
-  $prefix   = undef,
-  $users    = undef
+  $base_uri       = undef,
+  $username       = undef,
+  $prefix         = undef,
+  $users          = undef,
+  $b2safe_version = 'v3.0.2'
 ){
 
   package{ 'rpm-build':
@@ -22,7 +23,7 @@ class b2safe::b2safe(
   #Clone b2safe version 3.0.2 (work around)
   exec{ 'get_B2SAFE_rpm':
     path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
-    command => "git clone https://github.com/EUDAT-B2SAFE/B2SAFE-core /home/${::b2safe::irods::account_name}/B2SAFE-core && cd /home/${::b2safe::irods::account_name}/B2SAFE-core && git reset --hard 6e30b3c32051710e2630aa7255739f28828940f8",
+    command => "git clone https://github.com/EUDAT-B2SAFE/B2SAFE-core /home/${::b2safe::irods::account_name}/B2SAFE-core && cd /home/${::b2safe::irods::account_name}/B2SAFE-core && git reset --hard ${::b2safe::b2safe::b2safe_version}",
     creates => "/home/${::b2safe::irods::account_name}/B2SAFE-core",
     user    => $::b2safe::irods::account_name,
   } ->
