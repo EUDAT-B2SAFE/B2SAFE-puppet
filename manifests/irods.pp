@@ -3,17 +3,17 @@
 class b2safe::irods(
   $account_name      = 'irods',
   $group_name        = 'irods',
-  $ZONE              = 'zone',
-  $PORT              = '1247',
-  $RANGESTART        = '20000',
-  $RANGEEND          = '20199',
-  $RESOURCEDIR       = '/data/irodsVault',
-  $LOCALZONEKEY      = 'TEMPORARY_zone_key',
-  $NEGOTIATIONKEY    = 'TEMPORARY_32byte_negotiation_key',
-  $CONTROLPLANEPORT  = '1248',
-  $CONTROLPLANEKEY   = 'TEMPORARY__32byte_ctrl_plane_key',
-  $VALIDATIONBASEURI = 'https://schemas.irods.org/configuration',
-  $ADMINPASSWORD     = undef,
+  $zone              = 'zone',
+  $port              = '1247',
+  $rangestart        = '20000',
+  $rangeend          = '20199',
+  $resourcedir       = '/data/irodsVault',
+  $localzonekey      = 'TEMPORARY_zone_key',
+  $negotiationkey    = 'TEMPORARY_32byte_negotiation_key',
+  $controlplaneport  = '1248',
+  $controlplanekey   = 'TEMPORARY__32byte_ctrl_plane_key',
+  $validationbaseuri = 'https://schemas.irods.org/configuration',
+  $adminpassword     = undef,
 
 
 ){

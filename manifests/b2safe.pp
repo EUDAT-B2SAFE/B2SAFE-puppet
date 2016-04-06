@@ -1,10 +1,10 @@
 #Class irods is used to perform irods initial configuration
 
 class b2safe::b2safe(
-  $BASE_URI = undef,
-  $USERNAME = undef,
-  $PREFIX   = undef,
-  $USERS    = undef
+  $base_uri = undef,
+  $username = undef,
+  $prefix   = undef,
+  $users    = undef
 ){
 
   package{ 'rpm-build':

@@ -1,10 +1,10 @@
 class b2safe::postgresql(
   $db_password       = undef,
   $db_user           = 'irods',
-  $DATABASEHOSTORIP  = 'localhost',
-  $DATABASEPORT      = '0000',
-  $DATABASENAME      = 'ICAT',
-  $PGDATA            = 'var/lib/pgsql/9.3/data/'
+  $databasehostorip  = 'localhost',
+  $databaseport      = '0000',
+  $databasename      = 'ICAT',
+  $pgdata            = 'var/lib/pgsql/9.3/data/'
 )
 {
 
@@ -19,11 +19,11 @@ class b2safe::postgresql(
         }
         7.0, 7.1: {
           class{ "install_postgres_packages_scientific7":
-            pgdata=>$PGDATA
+            pgdata=>$::b2safe::postgresql::pgdata
           } ->
 
           class{ 'setup_icat_db':
-            pgdata=>$PGDATA
+            pgdata=>$::b2safe::postgresql::pgdata
           }
         }
       }
@@ -31,11 +31,11 @@ class b2safe::postgresql(
     'CentOS': {
       if $::operatingsystemmajrelease == 7{
         class{ "install_postgres_packages_centos7":
-          pgdata=>$PGDATA
+          pgdata=>$::b2safe::postgresql::pgdata
         } ->
 
         class{ 'setup_icat_db':
-          pgdata=>$PGDATA
+          pgdata=>$::b2safe::postgresql::pgdata
         }
       }
     }

@@ -146,7 +146,7 @@ else
   echo -n ": "
   ####################################################puppet hack:
   #read DATABASEHOSTORIP
-  DATABASEHOSTORIP="<%= @DATABASEHOSTORIP %>"
+  DATABASEHOSTORIP="<%= @databasehostorip %>"
   if [ "$DATABASEHOSTORIP" == "" ] ; then
     if [ "$LASTDATABASEHOSTORIP" ] ; then DATABASEHOSTORIP=$LASTDATABASEHOSTORIP; fi
   fi
@@ -163,7 +163,7 @@ else
   fi
   echo -n ": "
   ####################################################puppet hack:
-  DATABASEPORT="<%=  @DATABASEPORT %>"
+  DATABASEPORT="<%=  @databaseport %>"
   #read DATABASEPORT
   if [ "$DATABASEPORT" == "" ] ; then
     if [ "$LASTDATABASEPORT" ] ; then
@@ -186,7 +186,7 @@ else
   echo -n ": "
   ####################################################puppet hack:
   #read DATABASENAME
-  DATABASENAME="<%= @DATABASENAME %>"
+  DATABASENAME="<%= @databasename %>"
   if [ "$DATABASENAME" == "" ] ; then
     if [ "$LASTDATABASENAME" ] ; then
       DATABASENAME=$LASTDATABASENAME
