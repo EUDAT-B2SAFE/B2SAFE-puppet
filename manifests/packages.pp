@@ -3,7 +3,7 @@
 
 class b2safe::packages(
   $install_epel = true,
-  $dependencies = ['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests','authd']
+  $dependencies = ['fuse-libs', 'perl', 'perl-JSON', 'python-jsonschema', 'python-psutil', 'python-requests', 'authd', 'lsof']
 ){
   notify{ "Operating system ${::operatingsystem}": }
 
