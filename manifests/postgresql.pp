@@ -4,7 +4,7 @@ class b2safe::postgresql(
   $databasehostorip  = 'localhost',
   $databaseport      = '0000',
   $databasename      = 'ICAT',
-  $pgdata            = 'var/lib/pgsql/9.3/data/'
+  $pgdata            = '/var/lib/pgsql/9.3/data/'
 )
 {
 
