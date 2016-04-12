@@ -1,0 +1,35 @@
+{
+  "name": "eudat-b2afe",
+  "version": "0.0.2",
+  "author": "eudat",
+  "summary": "module for automated b2safe deployment",
+  "license": "AGPL-3.0",
+  "source": "https://github.com/BeneDicere/B2SAFE-puppet.git",
+  "project_page": "https://github.com/BeneDicere/B2SAFE-puppet",
+  "issues_url": "https://github.com/EUDAT-B2SAFE/B2SAFE-puppet/issues",
+  "tags": [
+    "eudat",
+    "puppet",
+    "b2safe"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=1.0.0"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.0.0 < 4.0.0"
+    }
+  ]
+}
