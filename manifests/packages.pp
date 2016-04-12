@@ -7,7 +7,7 @@ class b2safe::packages(
 ){
   notify{ "Operating system ${::operatingsystem}": }
 
-  package { $::b2safe::packages::dependencies:
+  package { $dependencies:
     ensure  => installed,
   }
 
