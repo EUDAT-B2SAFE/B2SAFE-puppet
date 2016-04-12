@@ -29,7 +29,7 @@ class b2safe::packages(
             provider => rpm,
             ensure   => installed,
             source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-icat-4.1.5-centos6-x86_64.rpm',
-            require  => Package[$::b2sade::package::dependencies]
+            require  => Package[$::b2safe::packages::dependencies]
           }
         }
         7.0, 7.1: {
@@ -51,7 +51,7 @@ class b2safe::packages(
             provider => rpm,
             ensure   => installed,
             source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-icat-4.1.7-centos7-x86_64.rpm',
-            require  => Package[$::b2sade::package::dependencies]
+            require  => Package[$::b2safe::packages::dependencies]
           }
         }
         default:
@@ -81,7 +81,7 @@ class b2safe::packages(
         provider => rpm,
         ensure   => installed,
         source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-icat-4.1.6-centos7-x86_64.rpm',
-        require  => Package[$::b2sade::package::dependencies]
+        require  => Package[$::b2safe::packages::dependencies]
       }
     }
     default: {
