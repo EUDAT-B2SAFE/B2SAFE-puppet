@@ -89,7 +89,7 @@ class b2safe::packages(
     }
   }
 
-  package { $::b2sade::package::dependencies :
+  package { $::b2safe::packages::dependencies :
     ensure  => installed,
   }
 }
