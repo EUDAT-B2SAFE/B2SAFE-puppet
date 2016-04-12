@@ -16,7 +16,7 @@ class b2safe::packages(
       notify{ "Repos for ${::operatingsystem} ${operatingsystemrelease}": }
       case $::operatingsystemrelease {
         6.6: {
-          if $::b2sade::package::install_epel{
+          if $install_epel{
             package { 'epel-release-6-8':
               provider => rpm,
               ensure   => installed,
@@ -34,11 +34,11 @@ class b2safe::packages(
             provider => rpm,
             ensure   => installed,
             source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-icat-4.1.5-centos6-x86_64.rpm',
-            require  => Package[$::b2safe::packages::dependencies]
+            require  => Package[$dependencies]
           }
         }
         7.0, 7.1: {
-          if $::b2sade::package::install_epel{
+          if $install_epel{
             package { 'epel-release-7-5':
               provider => rpm,
               ensure   => installed,
@@ -56,7 +56,7 @@ class b2safe::packages(
             provider => rpm,
             ensure   => installed,
             source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-icat-4.1.7-centos7-x86_64.rpm',
-            require  => Package[$::b2safe::packages::dependencies]
+            require  => Package[$dependencies]
           }
         }
         default:
@@ -68,7 +68,7 @@ class b2safe::packages(
     'CentOS': {
       notify{ "Repos for ${::operatingsystem}": }
 
-      if $::b2sade::package::install_epel{
+      if $install_epel{
         package { 'epel-release-7-5':
           provider => rpm,
           ensure   => installed,
@@ -86,7 +86,7 @@ class b2safe::packages(
         provider => rpm,
         ensure   => installed,
         source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-icat-4.1.6-centos7-x86_64.rpm',
-        require  => Package[$::b2safe::packages::dependencies]
+        require  => Package[$dependencies]
       }
     }
     default: {
