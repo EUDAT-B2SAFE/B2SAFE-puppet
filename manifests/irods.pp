@@ -14,16 +14,12 @@ class b2safe::irods(
   $controlplanekey   = 'TEMPORARY__32byte_ctrl_plane_key',
   $validationbaseuri = 'https://schemas.irods.org/configuration',
   $adminpassword     = undef,
-
-
 ){
-
-
   #Create Vault directory
 
   file { ['/data/','/data/irodsVault/']:
     ensure => 'directory',
-    mode   => 775
+    mode   => '0775'
   }
 
   #Create irods user
@@ -35,7 +31,6 @@ class b2safe::irods(
   }
 
   #Prepare configuration files
-
   file { '/var/lib/irods/packaging/setup_irods_service_account.sh':
     ensure  => file,
     owner   => 'root',
