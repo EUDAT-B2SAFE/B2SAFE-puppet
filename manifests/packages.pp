@@ -6,6 +6,11 @@ class b2safe::packages(
   $dependencies = ['fuse-libs','perl','perl-JSON','python-jsonschema','python-psutil','python-requests','authd']
 ){
   notify{ "Operating system ${::operatingsystem}": }
+
+  package { $::b2safe::packages::dependencies:
+    ensure  => installed,
+  }
+
   case $::operatingsystem{
     'Scientific': {
       notify{ "Repos for ${::operatingsystem} ${operatingsystemrelease}": }
@@ -89,7 +94,4 @@ class b2safe::packages(
     }
   }
 
-  package { $::b2safe::packages::dependencies :
-    ensure  => installed,
-  }
 }
