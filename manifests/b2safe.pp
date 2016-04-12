@@ -21,11 +21,16 @@ class b2safe::b2safe(
   }
 
   #Clone b2safe version 3.0.2 (work around)
+  package{ 'git':
+    ensure => installed,
+  }
+
   exec{ 'get_B2SAFE_rpm':
     path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
     command => "git clone https://github.com/EUDAT-B2SAFE/B2SAFE-core /home/${::b2safe::irods::account_name}/B2SAFE-core && cd /home/${::b2safe::irods::account_name}/B2SAFE-core && git reset --hard ${::b2safe::b2safe::b2safe_version}",
     creates => "/home/${::b2safe::irods::account_name}/B2SAFE-core",
     user    => $::b2safe::irods::account_name,
+    require => Package[ 'git' ],
   } ->
 
   exec{ 'create_rpm':
