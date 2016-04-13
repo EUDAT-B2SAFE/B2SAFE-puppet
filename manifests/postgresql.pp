@@ -69,7 +69,7 @@ class b2safe::postgresql(
   exec { 'Change PGDATA Path':
     path    => '/bin:/usr/bin:/sbin:/usr/sbin',
     command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service"
-  } ->
+  }
 
   if $manage_database {
     exec{ 'initdb':
