@@ -48,12 +48,12 @@ class b2safe::postgresql(
 
   package{ 'postgresql93-server':
     ensure  => installed,
-    require => Package ['unixODBC','unixODBC-devel'],
+    require => Package[ $dependencies ],
   } ->
 
   package{ 'postgresql93-odbc':
     ensure  => installed,
-    require => Package ['unixODBC','unixODBC-devel'],
+    require => Package[ $dependencies ],
   } ->
 
   package { 'irods-database-plugin-postgres93':
@@ -110,7 +110,7 @@ class b2safe::postgresql(
     exec{ 'grand_priv':
       command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
     }
-  }->
+  }
     #======================================================
     # Copy configuration file for the Database
     #======================================================
