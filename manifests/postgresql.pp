@@ -11,7 +11,7 @@ class b2safe::postgresql(
 )
 {
 
-  notify { "IN POSTGRESQL": }
+  notify { 'IN POSTGRESQL': }
 
   package{ $dependencies:
     ensure => installed,
@@ -97,7 +97,7 @@ class b2safe::postgresql(
     } ->
 
     exec{ 'setup_ICAT_DB':
-      unless  => "/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT",
+      unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
       #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l"
       command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
     } ->
