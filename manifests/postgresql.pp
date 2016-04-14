@@ -20,11 +20,11 @@ class b2safe::postgresql(
     'Scientific', 'CentOS': {
       case $::operatingsystemmajrelease{
         6: {
-          $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm"
+          $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos6/irods-database-plugin-postgres93-${::b2safe::packages::irods_icat_min_version}-centos6-x86_64.rpm"
           $start_database_command = 'service postgresql-9.3 start'
         }
         7: {
-          $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm"
+          $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos7/irods-database-plugin-postgres93-${::b2safe::packages::irods_icat_min_version}-centos7-x86_64.rpm"
           $start_database_command = 'systemctl start postgresql-9.3'
         }
         default:

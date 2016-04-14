@@ -4,8 +4,10 @@
 class b2safe::packages(
   $install_epel = true,
   $dependencies = ['fuse-libs', 'perl', 'perl-JSON', 'python-jsonschema', 'python-psutil', 'python-requests', 'authd', 'lsof'],
-  $irods_icat_version = '4.1.7'
+  $irods_icat_maj_version = '4',
+  $irods_icat_min_version = '1.7'
 ){
+  $irods_icat_version = "${irods_icat_maj_version}.${irods_icat_min_version}"
   notify{ "Operating system ${::operatingsystem}": }
 
   package { $dependencies:
