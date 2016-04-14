@@ -7,6 +7,7 @@ class b2safe::b2safe(
   $users          = undef,
   $b2safe_version = '3.0.2'
 ){
+  $b2safe_package_version = regsubst($b2safe_version,'^(\d+)\.(\d+)\.(\d+)$','\1.\2-\3')
 
   package{ 'rpm-build':
     ensure   => 'installed',
@@ -36,7 +37,7 @@ class b2safe::b2safe(
   exec{ 'create_rpm':
     path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
     cwd     => "/home/${::b2safe::irods::account_name}/B2SAFE-core/packaging",
-    onlyif  => "test ! -e /home/${::b2safe::irods::account_name}/rpmbuild/RPMS/noarch/irods-eudat-b2safe-3.0-2.noarch.rpm",
+    onlyif  => "test ! -e /home/${::b2safe::irods::account_name}/rpmbuild/RPMS/noarch/irods-eudat-b2safe-${b2safe_package_version}.noarch.rpm",
     command => 'sh create_rpm_package.sh',
     user    => $::b2safe::irods::account_name,
   } ->
@@ -48,7 +49,7 @@ class b2safe::b2safe(
   exec{ 'install_rpm':
     unless  => 'rpm -qa |grep irods-eudat-b2safe',
     path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
-    command => "rpm -ivh /home/${::b2safe::irods::account_name}/rpmbuild/RPMS/noarch/irods-eudat-b2safe-3.0-2.noarch.rpm",
+    command => "rpm -ivh /home/${::b2safe::irods::account_name}/rpmbuild/RPMS/noarch/irods-eudat-b2safe-${b2safe_package_version}.noarch.rpm",
   } ->
 
   file { '/opt/eudat/b2safe/packaging/install.conf':
