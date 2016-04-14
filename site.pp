@@ -3,7 +3,7 @@
 
 
 node 'default'{
-include puppet-b2safe
+include b2safe
 }
 
 
