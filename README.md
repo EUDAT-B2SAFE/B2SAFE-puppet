@@ -21,15 +21,10 @@ Automatic installation for EUDAT B2SAFE service
 
   sudo yum install puppet-3.8.2
   
-* Install git:<br>
-  sudo yum install git
-
-* Download repository in e.g. /home/:<br>
-  sudo git clone https://github.com/EUDAT-B2SAFE/B2SAFE-puppet.git
-
-* Replace completely /etc/puppet with downloaded repository <br>
-   sudo rm -rf /etc/puppet <br>
-   sudo mv B2SAFE-puppet /etc/puppet
+* Setup B2SAFE Puppet Module on the host<br>
+  wget https://raw.githubusercontent.com/EUDAT-B2SAFE/B2SAFE-puppet/master/setup_module.sh
+  chmod +x setup_module.sh 
+  ./setup_module.sh 
 
 * Choose between SL6.6 or CentOS7 or Scientific7 and apply your parameters for configuration of Postgres, iRods and B2SAFE in file:<br>
   /etc/puppet/parameters/common.yaml 
