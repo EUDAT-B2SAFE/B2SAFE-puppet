@@ -13,7 +13,7 @@ class b2safe::packages(
   }
 
   case $::operatingsystem{
-    'Scientific', 'CentOS': {
+    'Scientific': {
       notify{ "Repos for ${::operatingsystem} ${::operatingsystemrelease}": }
       case $::operatingsystemmajrelease {
         6: {
@@ -51,6 +51,36 @@ class b2safe::packages(
             ensure   => installed,
             provider => rpm,
             source   => 'http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-sl93-9.3-2.noarch.rpm',
+          }
+
+          package { "irods-icat-${irods_icat_version}":
+            ensure   => installed,
+            provider => rpm,
+            source   => "ftp://ftp.renci.org/pub/irods/releases/${irods_icat_version}/centos7/irods-icat-${irods_icat_version}-centos7-x86_64.rpm",
+            require  => Package[$dependencies]
+          }
+        }
+        default:
+        {
+          notify{ 'not supported operatingsystem majorrelease': }
+        }
+      }
+    }
+    'CentOS': {
+      case $::operatingsystemmajrelease {
+        7: {
+          if $install_epel{
+            package { 'epel-release-7-5':
+              ensure   => installed,
+              provider => rpm,
+              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm',
+            }
+          }
+
+          package { 'pgdg-sl93-9.3-2':
+            ensure   => installed,
+            provider => rpm,
+            source   => 'http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-2.noarch.rpm',
           }
 
           package { "irods-icat-${irods_icat_version}":
