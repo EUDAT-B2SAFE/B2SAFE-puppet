@@ -3,7 +3,8 @@
 
 class b2safe::packages(
   $install_epel = true,
-  $dependencies = ['fuse-libs', 'perl', 'perl-JSON', 'python-jsonschema', 'python-psutil', 'python-requests', 'authd', 'lsof']
+  $dependencies = ['fuse-libs', 'perl', 'perl-JSON', 'python-jsonschema', 'python-psutil', 'python-requests', 'authd', 'lsof'],
+  $irods_icat_version = '4.1.7'
 ){
   notify{ "Operating system ${::operatingsystem}": }
 
@@ -12,10 +13,10 @@ class b2safe::packages(
   }
 
   case $::operatingsystem{
-    'Scientific': {
+    'Scientific', 'CentOS': {
       notify{ "Repos for ${::operatingsystem} ${::operatingsystemrelease}": }
-      case $::operatingsystemrelease {
-        6.6: {
+      case $::operatingsystemmajrelease {
+        6: {
           if $install_epel{
             package { 'epel-release-6-8':
               ensure   => installed,
@@ -30,14 +31,14 @@ class b2safe::packages(
             source   => 'http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-sl93-9.3-2.noarch.rpm',
           }
 
-          package { 'irods-icat-4.1.5':
+          package { "irods-icat-${irods_icat_version}":
             ensure   => installed,
             provider => rpm,
-            source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-icat-4.1.5-centos6-x86_64.rpm',
+            source   => "ftp://ftp.renci.org/pub/irods/releases/${irods_icat_version}/centos6/irods-icat-${irods_icat_version}-centos6-x86_64.rpm",
             require  => Package[$dependencies]
           }
         }
-        7.0, 7.1: {
+        7: {
           if $install_epel{
             package { 'epel-release-7-5':
               ensure   => installed,
@@ -52,41 +53,17 @@ class b2safe::packages(
             source   => 'http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-sl93-9.3-2.noarch.rpm',
           }
 
-          package { 'irods-icat-4.1.7':
+          package { "irods-icat-${irods_icat_version}":
             ensure   => installed,
             provider => rpm,
-            source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-icat-4.1.7-centos7-x86_64.rpm',
+            source   => "ftp://ftp.renci.org/pub/irods/releases/${irods_icat_version}/centos7/irods-icat-${irods_icat_version}-centos7-x86_64.rpm",
             require  => Package[$dependencies]
           }
         }
         default:
         {
-          notify{ 'not supported operatingsystem release': }
+          notify{ 'not supported operatingsystem majorrelease': }
         }
-      }
-    }
-    'CentOS': {
-      notify{ "Repos for ${::operatingsystem}": }
-
-      if $install_epel{
-        package { 'epel-release-7-5':
-          ensure   => installed,
-          provider => rpm,
-          source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm',
-        }
-      }
-
-      package { 'pgdg-centos93-9.3-2':
-        ensure   => installed,
-        provider => rpm,
-        source   => 'http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-2.noarch.rpm',
-      }
-
-      package { 'irods-icat-4.1.6':
-        ensure   => installed,
-        provider => rpm,
-        source   => 'ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-icat-4.1.6-centos7-x86_64.rpm',
-        require  => Package[$dependencies]
       }
     }
     default: {

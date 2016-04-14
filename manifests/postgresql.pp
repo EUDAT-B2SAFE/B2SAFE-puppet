@@ -6,7 +6,6 @@ class b2safe::postgresql(
   $databasename       = 'ICAT',
   $pgdata             = '/var/lib/pgsql/9.3/data/',
   $dependencies       = ['unixODBC', 'unixODBC-devel'],
-  $irods_icat_version = 'irods-icat-4.1.7',
   $manage_database    = false
 )
 {
@@ -18,26 +17,20 @@ class b2safe::postgresql(
   }
 
   case $::operatingsystem{
-    'Scientific': {
-      case $::operatingsystemrelease{
-        6.6: {
-          $irods_plugin_source = 'ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm'
+    'Scientific', 'CentOS': {
+      case $::operatingsystemmajrelease{
+        6: {
+          $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm"
           $start_database_command = 'service postgresql-9.3 start'
         }
-        7.0, 7.1: {
-          $irods_plugin_source = 'ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm'
+        7: {
+          $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm"
           $start_database_command = 'systemctl start postgresql-9.3'
         }
         default:
         {
-          notify{ 'not supported operatingsystem release': }
+          notify{ 'not supported operatingsystem majerrelease': }
         }
-      }
-    }
-    'CentOS': {
-      if $::operatingsystemmajrelease == 7{
-        $irods_plugin_source = 'ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm'
-        $start_database_command = 'systemctl start postgresql-9.3'
       }
     }
     default:
@@ -60,7 +53,7 @@ class b2safe::postgresql(
     ensure   => installed,
     provider => rpm,
     source   => $irods_plugin_source,
-    require  => Package[ $irods_icat_version ]
+    require  => Package[ "irods-icat-${::b2safe::packages::irods_icat_version}" ]
   } ->
 
   file { '/usr/lib/systemd/system/postgresql-9.3.service':
