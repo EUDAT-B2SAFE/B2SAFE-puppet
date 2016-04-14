@@ -79,7 +79,7 @@ class b2safe::packages(
             }
           }
 
-          package { 'pgdg-sl93-9.3-2':
+          package { 'pgdg-centos93-9.3-2':
             ensure   => installed,
             provider => rpm,
             source   => 'http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-2.noarch.rpm',
