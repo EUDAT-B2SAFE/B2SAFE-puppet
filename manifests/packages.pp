@@ -8,7 +8,6 @@ class b2safe::packages(
   $irods_icat_min_version = '1.7'
 ){
   $irods_icat_version = "${irods_icat_maj_version}.${irods_icat_min_version}"
-  notify{ "Operating system ${::operatingsystem}": }
 
   package { $dependencies:
     ensure  => installed,
@@ -16,7 +15,6 @@ class b2safe::packages(
 
   case $::operatingsystem{
     'Scientific': {
-      notify{ "Repos for ${::operatingsystem} ${::operatingsystemrelease}": }
       case $::operatingsystemmajrelease {
         6: {
           if $install_epel{

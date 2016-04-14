@@ -9,9 +9,6 @@ class b2safe::postgresql(
   $manage_database    = false
 )
 {
-
-  notify { 'IN POSTGRESQL': }
-
   package{ $dependencies:
     ensure => installed,
   }
