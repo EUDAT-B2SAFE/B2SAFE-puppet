@@ -40,10 +40,10 @@ class b2safe::packages(
         }
         7: {
           if $install_epel{
-            package { 'epel-release-7-5':
+            package { 'epel-release-7-6':
               ensure   => installed,
               provider => rpm,
-              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm',
+              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
             }
           }
 
@@ -70,10 +70,10 @@ class b2safe::packages(
       case $::operatingsystemmajrelease {
         7: {
           if $install_epel{
-            package { 'epel-release-7-5':
+            package { 'epel-release-7-6':
               ensure   => installed,
               provider => rpm,
-              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm',
+              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
             }
           }
 

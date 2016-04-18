@@ -5,7 +5,8 @@ class b2safe::b2safe(
   $username       = undef,
   $prefix         = undef,
   $users          = undef,
-  $b2safe_version = '3.0.2'
+  $b2safe_version = '3.0.2',
+  $run_scripts    = true
 ){
   $b2safe_package_version = regsubst($b2safe_version,'^(\d+)\.(\d+)\.(\d+)$','\1.\2-\3')
 
@@ -58,6 +59,22 @@ class b2safe::b2safe(
     group   => 'root',
     mode    => '0755',
     content => template('b2safe/install.erb'),
+  }
+
+  if $run_scripts {
+    exec{ '/var/lib/irods/packaging/setup_irods.sh':
+      path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
+      cwd     => '/var/lib/irods/packaging',
+      command => 'sh setup_irods.sh',
+      user    => 'root',
+    } ->
+
+    exec{ '/opt/eudat/b2safe/packaging/install.sh':
+      path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
+      cwd     => '/opt/eudat/b2safe/packaging',
+      command => 'sh install.sh',
+      user    => $::b2safe::irods::account_name,
+    }
   }
 
 
