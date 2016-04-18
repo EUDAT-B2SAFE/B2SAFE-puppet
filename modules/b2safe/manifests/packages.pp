@@ -38,7 +38,7 @@ case $os{
   package { 'epel-release-7-5':
     provider => rpm,
     ensure   => installed,
-    source   => "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm",
+    source   => "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm",
    }->
 
    package { 'pgdg-centos93-9.3-2':
@@ -64,7 +64,7 @@ class {'install_packages':}->
   package { 'epel-release-7-5':
     provider => rpm,
     ensure   => installed,
-    source   => "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm",
+    source   => "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm",
    }->
 
    package { 'pgdg-sl93-9.3-2':
