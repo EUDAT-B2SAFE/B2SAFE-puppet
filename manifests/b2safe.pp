@@ -49,7 +49,8 @@ class b2safe::b2safe(
         content => template('b2safe/install.erb'),
       }
     }
-    default: {}
+    default: { }
+  }
 
   #Clone b2safe version 3.0.2 (work around)
   package{ 'git':
