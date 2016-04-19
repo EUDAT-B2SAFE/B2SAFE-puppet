@@ -1,4 +1,38 @@
-#Class irods is used to perform irods initial configuration
+# == Class: b2safe::b2safe
+#
+# == Description ==
+#
+# This class should provide the deployment of b2safe. It will download the source from Github, build a package and
+# install it.
+#
+# === Parameters
+#
+# [*base_uri*]
+#   This is the URI to the PID Handle service. Mandatory to be set.
+#
+# [*username*]
+#   Username at the PID Handle service. Mandatory to be set.
+#
+# [*prefix*]
+#   Prefix for the PID Handle service. Mandatory to be set.
+#
+# [*users*]
+#   A list of users at the different zones. E.g user1#zone1. Mandatory to be set.
+#
+# [*b2safe_version*]
+#   B2SAFE Version that will be installed. Default is 3.0.2.
+#
+# [*run_scripts*]
+#   Decide if setup scripts from iRODS and B2SAFE should run after package installation. Default is true.
+#
+# === Authors
+#
+#
+#
+# === Copyright
+#
+# Copyright 2015 EUDAT2020
+#
 
 class b2safe::b2safe(
   $base_uri       = undef,

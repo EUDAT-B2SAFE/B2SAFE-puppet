@@ -1,5 +1,29 @@
-## Class repos 
-# setup source files for required repositories depending on operation system
+# == Class: b2safe::packages
+#
+# == Description ==
+#
+# This class manage the installation of necessary packages depending on operation system.
+# install it.
+#
+# === Parameters
+#
+# [*install_epel*]
+#   Decide if epel for RHEL like operationg systems should be installed.
+#
+# [*dependencies*]
+#   A list of dependencies, needed by iRODS and Postgresql.
+#
+# [*irods_icat_version*]
+#   iCAT version. Default is 4.1.7.
+#
+# === Authors
+#
+#
+#
+# === Copyright
+#
+# Copyright 2015 EUDAT2020
+#
 
 class b2safe::packages(
   $install_epel = true,
