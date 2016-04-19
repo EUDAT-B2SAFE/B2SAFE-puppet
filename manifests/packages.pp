@@ -4,10 +4,9 @@
 class b2safe::packages(
   $install_epel = true,
   $dependencies = ['fuse-libs', 'perl', 'perl-JSON', 'python-jsonschema', 'python-psutil', 'python-requests', 'authd', 'lsof'],
-  $irods_icat_maj_version = '4',
-  $irods_icat_min_version = '1.7'
+  $irods_icat_version = '4.1.7'
 ){
-  $irods_icat_version = "${irods_icat_maj_version}.${irods_icat_min_version}"
+  $irods_icat_min_version = regsubst($irods_icat_version,'^(\d+)\.(\d+)\.(\d+)$','\2.\3')
 
   package { $dependencies:
     ensure  => installed,
