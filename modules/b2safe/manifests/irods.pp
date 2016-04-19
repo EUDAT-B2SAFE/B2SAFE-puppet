@@ -26,7 +26,6 @@ $ADMINPASSWORD     = 'undef',
 
 #Create irods user 
 
- create irods user
  user { $account_name:
    ensure     => 'present',
    home       => "/home/${account_name}",
