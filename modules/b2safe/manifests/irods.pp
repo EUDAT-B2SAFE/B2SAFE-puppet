@@ -13,34 +13,26 @@ $NEGOTIATIONKEY    = 'TEMPORARY_32byte_negotiation_key',
 $CONTROLPLANEPORT  = '1248',
 $CONTROLPLANEKEY   = 'TEMPORARY__32byte_ctrl_plane_key',
 $VALIDATIONBASEURI = 'https://schemas.irods.org/configuration',
-$ADMINPASSWORD     = 'changeme',
-
-
+$ADMINPASSWORD     = 'undef',
 ){
 
  
 #Create Vault directory
 
- file {['/data/','/data/irodsVault/']:
+ file { ['/data/','/data/irodsVault/']:
  ensure => 'directory',
- mode   => 775
+ mode   => '0775'
  }
 
 #Create irods user 
 
-file {"/home/${account_name}":
- ensure => 'directory',
- owner  => "${account_name}",
- mode   => 700
+ create irods user
+ user { $account_name:
+   ensure     => 'present',
+   home       => "/home/${account_name}",
+   shell      => '/bin/bash',
+   managehome => true,
  }
-
-user {$account_name:
-      ensure  => 'present',
-      gid     => '0',
-      home    => '/home/irods',
-      shell   => '/bin/bash',
-      uid     => '776',
-    }
 
 #Prepare configuration files 
 
