@@ -17,7 +17,13 @@ class b2safe::irods(
 ){
   #Create Vault directory
 
-  file { ['/data/','/data/irodsVault/']:
+  #small workaround because puppet can't create parent directories
+  exec{ 'create_resource_dir':
+    path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
+    onlyif  => "test ! -e ${resourcedir}",
+    command => "mkdir -p ${resourcedir}",
+  } ->
+  file { $resourcedir:
     ensure => 'directory',
     mode   => '0775'
   }
