@@ -97,10 +97,12 @@ class b2safe::postgresql(
     exec{ 'add_user':
       unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
       command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
-    } ->
+      notify  => Exec[ 'grand_priv' ],
+    }
 
     exec{ 'grand_priv':
-      command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
+      command     => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
+      refreshonly => true,
     }
   }
     #======================================================
