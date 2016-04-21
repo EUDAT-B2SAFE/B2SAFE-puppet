@@ -25,6 +25,8 @@ class b2safe::irods(
   } ->
   file { $resourcedir:
     ensure => 'directory',
+    owner  => $account_name,
+    group  => $account_name,
     mode   => '0775'
   }
 
