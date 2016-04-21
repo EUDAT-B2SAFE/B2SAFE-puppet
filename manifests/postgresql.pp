@@ -2,7 +2,7 @@ class b2safe::postgresql(
   $db_password        = undef,
   $db_user            = 'irods',
   $databasehostorip   = 'localhost',
-  $databaseport       = '0000',
+  $databaseport       = '5432',
   $databasename       = 'ICAT',
   $pgdata             = '/var/lib/pgsql/9.3/data/',
   $dependencies       = ['unixODBC', 'unixODBC-devel'],
