@@ -1,41 +1,59 @@
-#Class irods is used to perform irods initial configuration
+  # == Class: irods
+  #
+  #Class irods is used to perform irods initial configuration
+  #
+  # === Parameters
+  #
+  # [*sample_parameter*]
+  #
+  #
+  # === Authors
+  #
+  #
+  # === Copyright
+  #
+  # Copyright 2015 EUDAT2020
+  #
 
-class b2safe::irods(
-$account_name      = 'irods',
-$group_name        = 'irods',
-$ZONE              = 'zone',
-$PORT              = '1247',
-$RANGESTART        = '20000',
-$RANGEEND          = '20199',
-$RESOURCEDIR       = '/data/irodsVault',
-$LOCALZONEKEY      = 'TEMPORARY_zone_key',
-$NEGOTIATIONKEY    = 'TEMPORARY_32byte_negotiation_key',
-$CONTROLPLANEPORT  = '1248',
-$CONTROLPLANEKEY   = 'TEMPORARY__32byte_ctrl_plane_key',
-$VALIDATIONBASEURI = 'https://schemas.irods.org/configuration',
-$ADMINPASSWORD     = 'undef',
-){
+  class b2safe::irods(
+  $account_name      = 'irods',
+  $group_name        = 'irods',
+  $zone              = 'zone',
+  $port              = '1247',
+  $rangestart        = '20000',
+  $rangeend          = '20199',
+  $resourcedir       = '/data/irodsVault',
+  $localzonekey      = 'TEMPORARY_zone_key',
+  $negotiationkey    = 'TEMPORARY_32byte_negotiation_key',
+  $controlplaneport  = '1248',
+  $controlplanekey   = 'TEMPORARY__32byte_ctrl_plane_key',
+  $validationbaseuri = 'https://schemas.irods.org/configuration',
+  $adminpassword     =  undef,
+  ){
 
- 
-#Create Vault directory
+  #Create vault directory 
+  exec{ 'create_resource_dir':
+    path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
+    onlyif  => "test ! -e ${resourcedir}",
+    command => "mkdir -p ${resourcedir}",
+  } ->
+  file { $resourcedir:
+    ensure => 'directory',
+    owner  => $account_name,
+    group  => $account_name,
+    mode   => '0775'
+  }
 
- file { ['/data/','/data/irodsVault/']:
- ensure => 'directory',
- mode   => '0775'
- }
+  #Create irods user 
+  user { $account_name:
+    ensure     => 'present',
+    home       => "/home/${account_name}",
+    shell      => '/bin/bash',
+    managehome => true,
+  }
 
-#Create irods user 
-
- user { $account_name:
-   ensure     => 'present',
-   home       => "/home/${account_name}",
-   shell      => '/bin/bash',
-   managehome => true,
- }
-
-#Prepare configuration files 
-
-file { '/var/lib/irods/packaging/setup_irods_service_account.sh':
+  #Prepare configuration files 
+  file { '/var/lib/irods/packaging/setup_irods_service_account.sh':
     ensure  => file,
     owner   => 'root',
     group   => 'root',
@@ -43,12 +61,11 @@ file { '/var/lib/irods/packaging/setup_irods_service_account.sh':
     content => template('b2safe/setup_irods_service_account.erb'),
   }
 
-file { '/var/lib/irods/packaging/setup_irods_configuration.sh':
+  file { '/var/lib/irods/packaging/setup_irods_configuration.sh':
     ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
     content => template('b2safe/setup_irods_configuration.erb'),
-    }
-
+  }
 }
