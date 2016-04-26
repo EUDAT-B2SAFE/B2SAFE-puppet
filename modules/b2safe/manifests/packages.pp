@@ -1,10 +1,24 @@
-## Class repos 
-# setup source files for required repositories depending on operation system
+  # == Class: packages
+  #
+  # setup source files for required repositories depending on operation system
+  #
+  # === Parameters
+  #
+  # [*sample_parameter*]
+  #
+  #
+  # === Authors
+  #
+  #
+  # === Copyright
+  #
+  # Copyright 2015 EUDAT2020
+  #
 
-class b2safe::packages(
-$os
-){
-notify{"Operating system ${os}":}
+  class b2safe::packages(
+  $os
+  ){
+  notify{"Operating system ${os}":}
 case $os{
  'sl6.6':{
   notify{"Repos for ${os}":}
