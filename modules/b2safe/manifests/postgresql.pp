@@ -1,3 +1,19 @@
+# == Class: b2safe::postgresql 
+#
+# == Description ==
+#
+# This class installs and configures  a postresql for irods. 
+#
+# === Parameters
+#
+# [*base_uri*]
+#
+# === Authors
+#
+# === Copyright
+#
+# Copyright 2015 EUDAT2020
+
 class b2safe::postgresql(
 $db_password       ='irods',
 $db_user           ='irods',
