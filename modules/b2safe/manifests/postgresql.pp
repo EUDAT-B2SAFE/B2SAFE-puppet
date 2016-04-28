@@ -20,7 +20,7 @@
     $databasehostorip  = 'localhost',
     $databaseport      = '5432',
     $databasename      = 'ICAT',
-    $pgdata            = "var/lib/pgsql/9.3/data/",
+    $pgdata            = "/var/lib/pgsql/9.3/data/",
 
   )
   {
@@ -39,21 +39,21 @@
       }
 'CentOS':{
 class{"install_postgres_packages_centos7":
-     pgdata=>$PGDATA
+     pgdata=>$pgdata
      } ->
 
 class{'setup_icat_db':
-    pgdata=>$PGDATA
+    pgdata=>$pgdata
     }
    }
 
 'Scientific7':{
 class{"install_postgres_packages_scientific7":
-     pgdata=>$PGDATA
+     pgdata=>$pgdata
      } ->
 
 class{'setup_icat_db':
-    pgdata=>$PGDATA
+    pgdata=>$pgdata
     }
    }
  }
