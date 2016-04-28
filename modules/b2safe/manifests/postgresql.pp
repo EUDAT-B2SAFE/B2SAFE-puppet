@@ -25,7 +25,7 @@
   )
   {
     notify {"IN POSTGRESQL":}
-    case ::$operatingsystem {
+    case $::operatingsystem {
       'Scientific':{
         case $::operatingsystemmajrelease{
          6: {
