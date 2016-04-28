@@ -1,7 +1,6 @@
 #!/bin/bash
 
-printf "This script will try: \n 1. To install puppet tool \n 2. To install git \n 3. To download B2SAFE Puppet Module from Github \n 4. To 
-move it to the default puppet directory at /etc/puppet\n"
+printf "This script will try: \n 1. To install puppet tool \n 2. To install git \n 3. To download B2SAFE Puppet Module from Github \n 4. To move it to the default puppet directory at /etc/puppet\n"
 
 read -p "Are you ready to start? [y/n]" -n 1 -r
 

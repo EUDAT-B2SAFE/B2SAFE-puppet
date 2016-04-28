@@ -15,12 +15,13 @@
 # Copyright 2015 EUDAT2020
 
 class b2safe::postgresql(
-$db_password       ='irods',
-$db_user           ='irods',
-$DATABASEHOSTORIP  = 'localhost',
-$DATABASEPORT      = '0000',
-$DATABASENAME      = 'ICAT',
-$PGDATA            = "var/lib/pgsql/9.3/data/"
+$db_password       =  undef,
+$db_user           = 'irods',
+$databasehostorip  = 'localhost',
+$databaseport      = '5432',
+$databasename      = 'ICAT',
+$pgdata            = "var/lib/pgsql/9.3/data/",
+
 )
 {
 

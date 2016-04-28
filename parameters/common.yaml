@@ -2,20 +2,15 @@
 classes:
 - b2safe
 
-###############################################################################
-#Define operation system for B2SAFE installation: (currentl options: sl6.6 and CentOS7, Scientific7) #
-#################################################################################
-b2safe::packages::os: 'Scientific7'
-
 #################################################################################
 #Database configuration paramenters: db_user, db_password                       #
 #################################################################################
 b2safe::postgresql::db_user: 'irods'
 b2safe::postgresql::db_password: 'irods'
-b2safe::postgresql::DATABASEHOSTORIP: 'localhost'
-b2safe::postgresql::DATABASEPORT: '5432'
-b2safe::postgresql::DATABASENAME: 'ICAT'
-b2safe::postgresql::PGDATA: '/var/lib/test9.3' 
+b2safe::postgresql::databasehostorip: 'localhost'
+b2safe::postgresql::databaseport: '5432'
+b2safe::postgresql::databasename: 'ICAT'
+b2safe::postgresql::pgdata: '/var/lib/test9.3' 
 ################################################################################
 #iRODs configuration parameters:                                               #
 ################################################################################
