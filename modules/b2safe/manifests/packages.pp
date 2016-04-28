@@ -16,9 +16,7 @@
   #
 
   class b2safe::packages(
-  $os
   ){
-  notify{"Operating system ${os}":}
   case $::operatingsystem{
     'Scientific':{
       notify{"Repos for ${::operatingsytem}":}
