@@ -1,43 +1,43 @@
-# == Class: b2safe::postgresql 
-#
-# == Description ==
-#
-# This class installs and configures  a postresql for irods. 
-#
-# === Parameters
-#
-# [*base_uri*]
-#
-# === Authors
-#
-# === Copyright
-#
-# Copyright 2015 EUDAT2020
+  # == Class: b2safe::postgresql 
+  #
+  # == Description ==
+  #
+  # This class installs and configures  a postresql for irods. 
+  #
+  # === Parameters
+  #
+  # [*base_uri*]
+  #
+  # === Authors
+  #
+  # === Copyright
+  #
+  # Copyright 2015 EUDAT2020
 
-class b2safe::postgresql(
-$db_password       =  undef,
-$db_user           = 'irods',
-$databasehostorip  = 'localhost',
-$databaseport      = '5432',
-$databasename      = 'ICAT',
-$pgdata            = "var/lib/pgsql/9.3/data/",
+  class b2safe::postgresql(
+    $db_password       =  undef,
+    $db_user           = 'irods',
+    $databasehostorip  = 'localhost',
+    $databaseport      = '5432',
+    $databasename      = 'ICAT',
+    $pgdata            = "var/lib/pgsql/9.3/data/",
 
-)
-{
-
-  notify {"IN POSTGRESQL":}
-
-$os=hiera('b2safe::packages::os')
-
-case $os{
-'sl6.6':{
-
-class{'install_postgres_packages_sl66':} ->
-class{'setup_icat_db':}
-
-}
-
-'CentOS7':{
+  )
+  {
+    notify {"IN POSTGRESQL":}
+    case ::$operatingsystem {
+      'Scientific':{
+        case $::operatingsystemmajrelease{
+         6: {
+              class{'install_postgres_packages_sl66':} ->
+              class{'setup_icat_db':}
+            }
+         default: {
+           notify{ 'not supported operatingsystem majerrelease': }
+         }
+        }
+      }
+'CentOS':{
 class{"install_postgres_packages_centos7":
      pgdata=>$PGDATA
      } ->
