@@ -83,7 +83,7 @@ package { 'irods-database-plugin-postgres93':
     provider => rpm,
     ensure   => installed,
     source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.5/centos6/irods-database-plugin-postgres93-1.6-centos6-x86_64.rpm",
-    require  =>Package['irods-icat-4.1.5']
+    require  =>Package['irods-icat-4.1.7']
    }  ->
 
   exec{'initdb':
@@ -122,8 +122,8 @@ class install_postgres_packages_centos7($pgdata){
  package { 'irods-database-plugin-postgres93':
   provider => rpm,
   ensure   => installed,
-  source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.6-centos7-x86_64.rpm",
-  require  =>Package['irods-icat-4.1.6']
+  source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres93-1.7-centos7-x86_64.rpm",
+  require  =>Package['irods-icat-4.1.7']
   } ->
 
  file {'/usr/lib/systemd/system/postgresql-9.3.service':
