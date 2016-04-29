@@ -60,7 +60,7 @@
               provider => rpm,
               source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
             }
-          }->
+          }
 
           package { 'pgdg-sl93-9.3-2':
             ensure   => installed,
@@ -90,7 +90,7 @@
               provider => rpm,
               source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
             }
-          }->
+          }
 
           package { 'pgdg-centos93-9.3-2':
             ensure   => installed,
