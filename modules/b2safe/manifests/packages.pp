@@ -23,9 +23,7 @@
 
   $irods_icat_min_version = regsubst($irods_icat_version,'^(\d+)\.(\d+)\.(\d+)$','\2.\3')
   
-  package { $dependencies:
-    ensure  => installed,
-  }
+  ensure_packages($dependencies)
 
   case $::operatingsystem{
     'Scientific':{
