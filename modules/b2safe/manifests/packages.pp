@@ -16,28 +16,32 @@
   #
 
   class b2safe::packages(
-    $install_epel = true,
     $irods_icat_version = '4.1.7',
     $dependencies = ['fuse-libs', 'perl', 'perl-JSON', 'python-jsonschema', 'python-psutil', 'python-requests', 'authd', 'lsof']
   ){
 
   $irods_icat_min_version = regsubst($irods_icat_version,'^(\d+)\.(\d+)\.(\d+)$','\2.\3')
-  
-  ensure_packages($dependencies)
+ 
+  package {'yum-utils':
+    ensure => 'present'
+  }
 
   case $::operatingsystem{
     'Scientific':{
       notify{"Repos for ${::operatingsytem}":}
       case $::operatingsystemmajrelease {
         6: {
-          if $install_epel{
-            package { 'epel-release-6-8':
-              ensure   => installed,
-              provider => rpm,
-              source   => 'http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm',
-            }
+          package { 'epel-release-6-8':
+            ensure   => installed,
+            provider => rpm,
+            source   => 'http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm',
           }
 
+          package { $dependencies:
+            ensure  => installed,
+            require => Package ['epel-release-6-8']
+          }
+          
           package { 'pgdg-sl93-9.3-2':
             ensure   => installed,
             provider => rpm,
@@ -52,12 +56,15 @@
           }
         }
         7: {
-          if $install_epel{
-            package { 'epel-release-7-6':
+          package { 'epel-release-7-6':
               ensure   => installed,
               provider => rpm,
               source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
-            }
+          }
+      
+          package { $dependencies:
+             ensure  => installed,
+             require => Package ['epel-release-7-6']
           }
 
           package { 'pgdg-sl93-9.3-2':
@@ -82,20 +89,24 @@
     'CentOS':{
       case $::operatingsystemmajrelease {
         7: {
-          if $install_epel{
-            package { 'epel-release-7-6':
-              ensure   => installed,
-              provider => rpm,
-              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
-            }
+          package { 'epel-release-7-6':
+            ensure   => installed,
+            provider => rpm,
+            source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
           }
-
+ 
+          package { $dependencies:
+             ensure  => installed,
+             require => Package ['epel-release-7-6']
+          }
+          
           package { 'pgdg-centos93-9.3-2':
             ensure   => installed,
             provider => rpm,
             source   => 'http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-2.noarch.rpm',
           }->
         
+          
           package { "irods-icat-${irods_icat_version}":
             ensure   => installed,
             provider => rpm,
