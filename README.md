@@ -12,7 +12,7 @@ Automatic installation for EUDAT B2SAFE service
 ## Puppet version 
 * puppet version 3.8.x
 
-## Usage steps: 
+## B2SAFE deployment procedure: 
   
 * Setup B2SAFE Puppet Module on the host<br>
   wget https://raw.githubusercontent.com/EUDAT-B2SAFE/B2SAFE-puppet/master/setup_module.sh<br>
