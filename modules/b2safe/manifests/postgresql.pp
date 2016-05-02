@@ -21,10 +21,14 @@
     $databaseport      = '5432',
     $databasename      = 'ICAT',
     $pgdata            = "/var/lib/pgsql/9.3/data/",
-
-  )
-  {
-    notify {"IN POSTGRESQL":}
+    $dependencies      = ['unixODBC', 'unixODBC-devel'],
+    $manage_database   = false 
+  ){
+  
+  package { $dependencies:
+    ensure => installed,
+  }
+ 
     case $::operatingsystem {
       'Scientific':{
         case $::operatingsystemmajrelease{
@@ -65,17 +69,16 @@ class install_postgres_packages_sl66{
 #======================================================
 #Install all required postgresql
 #======================================================
- ensure_packages(['unixODBC','unixODBC-devel'])
 
  package{'postgresql93-server':
   ensure  => installed,
-  require => Package ['unixODBC','unixODBC-devel'],
+  require => Package [$dependecies],
   provider => 'yum',
   }->
 
 package{'postgresql93-odbc':
   ensure  => installed,
-  require => Package ['unixODBC','unixODBC-devel'],
+  require => Package [$dependencies],
   provider => 'yum',
   }->
 
@@ -105,17 +108,16 @@ class install_postgres_packages_centos7($pgdata){
 #======================================================
 #Install all required postgresql
 #======================================================
- ensure_packages(['unixODBC','unixODBC-devel'])
 
  package{'postgresql93-server':
   ensure  => installed,
-  require => Package ['unixODBC','unixODBC-devel'],
+  require => Package [$dependencies],
   provider => 'yum',
   } ->
 
  package{'postgresql93-odbc':
   ensure  => installed,
-  require => Package ['unixODBC','unixODBC-devel'],
+  require => Package [$dependencies],
   provider => 'yum',
   } ->
 
@@ -155,17 +157,16 @@ class install_postgres_packages_scientific7($pgdata){
 #======================================================
 #Install all required postgresql
 #======================================================
- ensure_packages(['unixODBC','unixODBC-devel'])
 
  package{'postgresql93-server':
   ensure  => installed,
-  require => Package ['unixODBC','unixODBC-devel'],
+  require => Package [$dependencies],
   provider => 'yum',
   } ->
 
  package{'postgresql93-odbc':
   ensure  => installed,
-  require => Package ['unixODBC','unixODBC-devel'],
+  require => Package [$dependencies],
   provider => 'yum',
   } ->
 

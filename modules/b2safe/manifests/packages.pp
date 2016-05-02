@@ -21,7 +21,7 @@
   ){
 
   $irods_icat_min_version = regsubst($irods_icat_version,'^(\d+)\.(\d+)\.(\d+)$','\2.\3')
- 
+
   package {'yum-utils':
     ensure => 'present'
   }
@@ -63,8 +63,8 @@
           }
       
           package { $dependencies:
-             ensure  => installed,
-             require => Package ['epel-release-7-6']
+            ensure  => installed,
+            require => Package ['epel-release-7-6']
           }
 
           package { 'pgdg-sl93-9.3-2':
@@ -94,10 +94,10 @@
             provider => rpm,
             source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
           }
- 
+
           package { $dependencies:
-             ensure  => installed,
-             require => Package ['epel-release-7-6']
+            ensure  => installed,
+            require => Package ['epel-release-7-6']
           }
           
           package { 'pgdg-centos93-9.3-2':
