@@ -43,7 +43,8 @@
       }
 'CentOS':{
 class{"install_postgres_packages_centos7":
-     pgdata=>$pgdata
+     pgdata=>$pgdata,
+     dependencies => $dependencies
      } ->
 
 class{'setup_icat_db':
@@ -64,7 +65,7 @@ class{'setup_icat_db':
 }
 
 
-class install_postgres_packages_sl66{
+class install_postgres_packages_sl66($dependencies){
 
 #======================================================
 #Install all required postgresql
@@ -103,7 +104,7 @@ exec{'postgresql-9.3':
 }
 
 
-class install_postgres_packages_centos7($pgdata){
+class install_postgres_packages_centos7($pgdata,$dependecies){
 
 #======================================================
 #Install all required postgresql
