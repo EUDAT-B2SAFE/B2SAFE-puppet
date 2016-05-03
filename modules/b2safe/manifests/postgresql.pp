@@ -42,9 +42,8 @@
         }
       }
 'CentOS':{
-class{"install_postgres_packages_centos7":
-     pgdata=>$pgdata,
-     dependencies => $dependencies
+class{'install_postgres_packages_centos7':
+     pgdata       => $pgdata,
      } ->
 
 class{'setup_icat_db':
@@ -65,7 +64,7 @@ class{'setup_icat_db':
 }
 
 
-class install_postgres_packages_sl66($dependencies){
+class install_postgres_packages_sl66(){
 
 #======================================================
 #Install all required postgresql
@@ -73,13 +72,13 @@ class install_postgres_packages_sl66($dependencies){
 
  package{'postgresql93-server':
   ensure  => installed,
-  require => Package [$dependecies],
+  require => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   }->
 
 package{'postgresql93-odbc':
   ensure  => installed,
-  require => Package [$dependencies],
+  require => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   }->
 
@@ -104,7 +103,7 @@ exec{'postgresql-9.3':
 }
 
 
-class install_postgres_packages_centos7($pgdata,$dependecies){
+class install_postgres_packages_centos7($pgdata){
 
 #======================================================
 #Install all required postgresql
@@ -112,13 +111,13 @@ class install_postgres_packages_centos7($pgdata,$dependecies){
 
  package{'postgresql93-server':
   ensure  => installed,
-  require => Package [$dependencies],
+  require => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   } ->
 
  package{'postgresql93-odbc':
   ensure  => installed,
-  require => Package [$dependencies],
+  require => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   } ->
 
@@ -161,13 +160,13 @@ class install_postgres_packages_scientific7($pgdata){
 
  package{'postgresql93-server':
   ensure  => installed,
-  require => Package [$dependencies],
+  require => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   } ->
 
  package{'postgresql93-odbc':
   ensure  => installed,
-  require => Package [$dependencies],
+  require => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   } ->
 
