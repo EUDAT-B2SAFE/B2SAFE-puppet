@@ -33,3 +33,60 @@ Automatic installation for EUDAT B2SAFE service
   su - irods <br>
   cd /opt/eudat/b2safe/packaging/<br>
   ./install.sh  
+
+
+## Configuration Parameters 
+
+###Database configuration paramenters
+
+db_user
+
+db_password
+
+databasehostorip
+
+databaseport
+
+databasename
+
+pgdata
+
+###iRODs configuration parameters
+
+account_name
+
+group_name
+
+zone 
+
+port             
+
+rangestart
+
+rangeend
+
+resourcedir
+
+localzonekey
+
+negotiationkey
+
+controlplaneport
+
+controlplanekey
+
+validationbaseuri
+
+adminpassword
+
+
+###B2SAFE configuration parameters
+
+BASE_URI
+
+USERNAME        
+
+PREFIX           
+
+USERS
+ 
