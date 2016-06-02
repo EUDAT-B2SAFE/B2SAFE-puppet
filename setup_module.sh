@@ -128,11 +128,11 @@ elif [ -d $puppet_dir ]; then
  if [[ $REPLY =~ ^[Yy]$ ]]; then 
   cmd=`rm -rf /etc/puppet`
   cmd=`mv B2SAFE-puppet /etc/puppet`
+  echo " " 
   echo "======================================"  
-  echo " "
-  printf " " 
+  echo " " 
 
-  printf "Next steps: \n 1.Edit /etc/puppet/parameters/common.yml \n 2. Change dir to /etc/puppet/ \n 3.Run command: puppet apply --modulepath /etc/puppet/modules/ site.pp\n 4.Execute iRods setup script: /var/lib/irods/packaging/setup_irods.sh\n 4.Execute B2SAFE install script as irods user: su -irods; cd /opt/eudat/b2safe/packaging/; ./install.sh\n"
+  printf "Next steps: \n 1.Edit /etc/puppet/parameters/common.yml \n 2.Change dir: cd /etc/puppet/ \n 3.Run command: puppet apply --modulepath /etc/puppet/modules/ site.pp\n 4.Execute iRods setup script: /var/lib/irods/packaging/setup_irods.sh\n 4.Execute B2SAFE install script as irods user: su -irods; cd /opt/eudat/b2safe/packaging/; ./install.sh\n"
  else 
   echo "The /etc/puppet directory wasn't replaced. Exiting." 
   exit 0 

@@ -31,8 +31,8 @@ b2safe::irods::adminpassword:     'changeme'
 #################################################################################
 ##B2SAFE configuration parameters:                                               #
 #################################################################################
-puppet-b2safe::b2safe::BASE_URI:         'http://pid-vm01.gwdg.de:8082/handles/'
-puppet-b2safe::b2safe::USERNAME:         'kitpid'
-puppet-b2safe::b2safe::PREFIX:           '11325'
+puppet-b2safe::b2safe::BASE_URI:         ''
+puppet-b2safe::b2safe::USERNAME:         ''
+puppet-b2safe::b2safe::PREFIX:           ''
 puppet-b2safe::b2safe::USERS:            'irods#Zone5'
 
