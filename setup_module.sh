@@ -22,7 +22,7 @@ if [[ $1 == "--help" ||  $1 == "-h" || $1 == "--h" ]]
 
 printf "This script will try: \n 1.To install puppet tool \n 2.To install git \n 3.To download B2SAFE Puppet Module from Github \n 4.To move it to the default puppet directory at /etc/puppet\n"
 
-read -p "Are you ready to start? [y/n]" -n 1 -r
+read -p "Start now? [y/n]" -n 1 -r
 
  if [[ $REPLY =~ ^[Yy]$ ]]; then
  echo " " 
@@ -130,7 +130,9 @@ elif [ -d $puppet_dir ]; then
   cmd=`mv B2SAFE-puppet /etc/puppet`
   echo "======================================"  
   echo " "
-  printf "Next steps: \n 1.Edit /etc/puppet/parameters/common.yml \n 2.Run command: puppet apply --modulepath /etc/puppet/modules/ site.pp\n 3.Execute iRods setup script: /var/lib/irods/packaging/setup_irods.sh\n 4.Execute B2SAFE install script as irods user: su -irods; cd /opt/eudat/b2safe/packaging/; ./install.sh\n"
+  printf " " 
+
+  printf "Next steps: \n 1.Edit /etc/puppet/parameters/common.yml \n 2. Change dir to /etc/puppet/ \n 3.Run command: puppet apply --modulepath /etc/puppet/modules/ site.pp\n 4.Execute iRods setup script: /var/lib/irods/packaging/setup_irods.sh\n 4.Execute B2SAFE install script as irods user: su -irods; cd /opt/eudat/b2safe/packaging/; ./install.sh\n"
  else 
   echo "The /etc/puppet directory wasn't replaced. Exiting." 
   exit 0 
