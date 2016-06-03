@@ -20,39 +20,39 @@
     $databasehostorip  = 'localhost',
     $databaseport      = '5432',
     $databasename      = 'ICAT',
-    $pgdata            = "/var/lib/pgsql/9.3/data/",
+    $pgdata            = '/var/lib/pgsql/9.3/data/',
     $dependencies      = ['unixODBC', 'unixODBC-devel'],
-    $manage_database   = false 
+    $manage_database   = false
   ){
   
   package { $dependencies:
     ensure => installed,
   }
- 
+  
   case $::operatingsystem {
     'Scientific':{
       case $::operatingsystemmajrelease{
-        6: {
-             class{'install_postgres_packages_sl66':}
-           }
+        6:{
+            class{'install_postgres_packages_sl66':}
+          }
         default: {
-           notify{ 'not supported operatingsystem majerrelease': }
+          notify{ 'not supported operatingsystem majerrelease': }
         }
       }
     }
-
+    
     'CentOS':{
-       class{'install_postgres_packages_centos7':
-         pgdata => $pgdata,
-       }
+      class{'install_postgres_packages_centos7':
+        pgdata => $pgdata,
+      }
     }
-
-   'Scientific7':{
-     class{"install_postgres_packages_scientific7":
-       pgdata=>$pgdata
-     }
-   }
-  } -> 
+    
+    'Scientific7':{
+      class{"install_postgres_packages_scientific7":
+        pgdata=>$pgdata
+      }
+    }
+  }->
 
   #=====================================================
   #Setup ICAT DB, user access and grant priviledges 
@@ -66,7 +66,7 @@
   }->
 
   service{'postgresql-9.3':
-    ensure  => 'running',
+    ensure    => 'running',
     subscribe => File["${pgdata}/pg_hba.conf"]
   }->
 
@@ -105,20 +105,20 @@ class install_postgres_packages_sl66(){
 #======================================================
 
  package{'postgresql93-server':
-  ensure  => installed,
-  require => Package ['unixODBC', 'unixODBC-devel'],
-  provider => 'yum',
-  }->
+   ensure   => installed,
+   require  => Package ['unixODBC', 'unixODBC-devel'],
+   provider => 'yum',
+ }->
 
 package{'postgresql93-odbc':
-  ensure  => installed,
-  require => Package ['unixODBC', 'unixODBC-devel'],
+  ensure   => installed,
+  require  => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   }->
 
 package { 'irods-database-plugin-postgres93':
-    provider => rpm,
     ensure   => installed,
+    provider => rpm,
     source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos6/irods-database-plugin-postgres93-1.7-centos6-x86_64.rpm",
     require  =>Package['irods-icat-4.1.7']
    }  ->
@@ -144,29 +144,29 @@ class install_postgres_packages_centos7($pgdata){
 #======================================================
 
  package{'postgresql93-server':
-  ensure  => installed,
-  require => Package ['unixODBC', 'unixODBC-devel'],
+  ensure   => installed,
+  require  => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   } ->
 
  package{'postgresql93-odbc':
-  ensure  => installed,
-  require => Package ['unixODBC', 'unixODBC-devel'],
+  ensure   => installed,
+  require  => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   } ->
 
  package { 'irods-database-plugin-postgres93':
-  provider => rpm,
   ensure   => installed,
+  provider => rpm,
   source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-database-plugin-postgres93-1.7-centos7-x86_64.rpm",
   require  =>Package['irods-icat-4.1.7']
   } ->
 
  file {'/usr/lib/systemd/system/postgresql-9.3.service':
-  ensure => present, 
-  } -> 
+  ensure => present,
+  } ->
  exec { 'Change PGDATA Path':
-  path  => '/bin:/usr/bin:/sbin:/usr/sbin',
+  path    => '/bin:/usr/bin:/sbin:/usr/sbin',
   command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service"
   } ->
 
@@ -193,20 +193,20 @@ class install_postgres_packages_scientific7($pgdata){
 #======================================================
 
  package{'postgresql93-server':
-  ensure  => installed,
-  require => Package ['unixODBC', 'unixODBC-devel'],
+  ensure   => installed,
+  require  => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   } ->
 
  package{'postgresql93-odbc':
-  ensure  => installed,
-  require => Package ['unixODBC', 'unixODBC-devel'],
+  ensure   => installed,
+  require  => Package ['unixODBC', 'unixODBC-devel'],
   provider => 'yum',
   } ->
 
  package { 'irods-database-plugin-postgres93':
-  provider => rpm,
   ensure   => installed,
+  provider => rpm,
   source   => "ftp://ftp.renci.org/pub/irods/releases/4.1.7/centos7/irods-database-plugin-postgres93-1.7-centos7-x86_64.rpm",
   require  =>Package['irods-icat-4.1.7']
   } ->
@@ -215,7 +215,7 @@ class install_postgres_packages_scientific7($pgdata){
   ensure => present,
   } ->
  exec { 'Change PGDATA Path':
-  path  => '/bin:/usr/bin:/sbin:/usr/sbin',
+  path    => '/bin:/usr/bin:/sbin:/usr/sbin',
   command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service"
   } ->
 
