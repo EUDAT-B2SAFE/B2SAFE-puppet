@@ -29,38 +29,72 @@
     ensure => installed,
   }
  
-    case $::operatingsystem {
-      'Scientific':{
-        case $::operatingsystemmajrelease{
-         6: {
-              class{'install_postgres_packages_sl66':} ->
-              class{'setup_icat_db':}
-            }
-         default: {
+  case $::operatingsystem {
+    'Scientific':{
+      case $::operatingsystemmajrelease{
+        6: {
+             class{'install_postgres_packages_sl66':}
+           }
+        default: {
            notify{ 'not supported operatingsystem majerrelease': }
-         }
         }
       }
-'CentOS':{
-class{'install_postgres_packages_centos7':
-     pgdata       => $pgdata,
-     } ->
-
-class{'setup_icat_db':
-    pgdata=>$pgdata
     }
-   }
 
-'Scientific7':{
-class{"install_postgres_packages_scientific7":
-     pgdata=>$pgdata
-     } ->
-
-class{'setup_icat_db':
-    pgdata=>$pgdata
+    'CentOS':{
+       class{'install_postgres_packages_centos7':
+         pgdata => $pgdata,
+       }
     }
+
+   'Scientific7':{
+     class{"install_postgres_packages_scientific7":
+       pgdata=>$pgdata
+     }
    }
- }
+  } -> 
+
+  #=====================================================
+  #Setup ICAT DB, user access and grant priviledges 
+  #=====================================================
+
+  file {"${pgdata}/pg_hba.conf":
+    ensure => present,
+    owner  => 'postgres',
+    group  => 'postgres',
+    source => 'puppet:///modules/b2safe/pg_hba.conf',
+  }->
+
+  service{'postgresql-9.3':
+    ensure  => 'running',
+    subscribe => File["${pgdata}/pg_hba.conf"]
+  }->
+
+  exec{'setup_ICAT_DB':
+    unless  => "/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT",
+    #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
+    command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
+  }->
+
+  exec{'add_user':
+    unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
+    command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
+  }->
+
+  exec{'grand_priv':
+    command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
+  }->
+  #======================================================
+  # Copy configuration file for the Database 
+  #======================================================
+
+  file { '/var/lib/irods/packaging/setup_irods_database.sh':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('b2safe/setup_irods_database.erb'),
+  }
 }
 
 
@@ -197,55 +231,3 @@ exec{'postgresql-9.3':
    require => Exec['initdb']
   }
 }
-
-class setup_icat_db(
-$db_password       ='irods',
-$db_user           ='irods',
-$pgdata
-)
-{
-#=====================================================
-#Setup ICAT DB, user access and grant priviledges 
-#=====================================================
-
- file{"${pgdata}/pg_hba.conf":
-  ensure => present,
-  owner  => 'postgres',
-  group  => 'postgres',
-  source => 'puppet:///modules/b2safe/pg_hba.conf',
-  }->
-
-
- service{'postgresql-9.3':
-  ensure  => 'running',
-  subscribe => File["${pgdata}/pg_hba.conf"]
-  }->
-
- exec{'setup_ICAT_DB':
-  unless  => "/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT",
-  #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
-  command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
- }->
-
- exec{'add_user':
-  unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
-  command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
- }->
-
-exec{'grand_priv':
-  command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
- }->
-#======================================================
-# Copy configuration file for the Database 
-#======================================================
-
-file { '/var/lib/irods/packaging/setup_irods_database.sh':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => template('b2safe/setup_irods_database.erb'),
-    }
-}
-
-
