@@ -31,8 +31,8 @@ b2safe::irods::adminpassword:     'changeme'
 #################################################################################
 ##B2SAFE configuration parameters:                                               #
 #################################################################################
-puppet-b2safe::b2safe::base_uri:         ''
-puppet-b2safe::b2safe::username:         ''
-puppet-b2safe::b2safe::prefix:           ''
-puppet-b2safe::b2safe::users:            'irods#Zone5'
+b2safe::b2safe::base_uri:         ''
+b2safe::b2safe::username:         ''
+b2safe::b2safe::prefix:           ''
+b2safe::b2safe::users:            'irods#Zone5'
 
