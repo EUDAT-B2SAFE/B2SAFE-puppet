@@ -54,6 +54,18 @@
     }
   }->
 
+ package{'postgresql93-server':
+   ensure   => installed,
+   require  => Package [ $dependencies ],
+   provider => 'yum',
+ }->
+
+
+package{'postgresql93-odbc':
+  ensure   => installed,
+  require  => Package [ $dependencies ],
+  provider => 'yum',
+  }->
   #=====================================================
   #Setup ICAT DB, user access and grant priviledges 
   #=====================================================
@@ -104,17 +116,7 @@ class install_postgres_packages_sl66(){
 #Install all required postgresql
 #======================================================
 
- package{'postgresql93-server':
-   ensure   => installed,
-   require  => Package ['unixODBC', 'unixODBC-devel'],
-   provider => 'yum',
- }->
 
-package{'postgresql93-odbc':
-  ensure   => installed,
-  require  => Package ['unixODBC', 'unixODBC-devel'],
-  provider => 'yum',
-  }->
 
 package { 'irods-database-plugin-postgres93':
     ensure   => installed,
@@ -143,17 +145,6 @@ class install_postgres_packages_centos7($pgdata){
 #Install all required postgresql
 #======================================================
 
- package{'postgresql93-server':
-  ensure   => installed,
-  require  => Package ['unixODBC', 'unixODBC-devel'],
-  provider => 'yum',
-  } ->
-
- package{'postgresql93-odbc':
-  ensure   => installed,
-  require  => Package ['unixODBC', 'unixODBC-devel'],
-  provider => 'yum',
-  } ->
 
  package { 'irods-database-plugin-postgres93':
   ensure   => installed,
@@ -191,19 +182,6 @@ class install_postgres_packages_scientific7($pgdata){
 #======================================================
 #Install all required postgresql
 #======================================================
-
- package{'postgresql93-server':
-  ensure   => installed,
-  require  => Package ['unixODBC', 'unixODBC-devel'],
-  provider => 'yum',
-  } ->
-
- package{'postgresql93-odbc':
-  ensure   => installed,
-  require  => Package ['unixODBC', 'unixODBC-devel'],
-  provider => 'yum',
-  } ->
-
  package { 'irods-database-plugin-postgres93':
   ensure   => installed,
   provider => rpm,

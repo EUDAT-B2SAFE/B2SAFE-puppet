@@ -41,7 +41,11 @@ Automatic installation for EUDAT B2SAFE service
 
 db_user
 
+iRODS database user, which will be used for configuration of database instance. Thish instance will be used by the iRODS by means of database plugin. 
+
 db_password
+
+
 
 databasehostorip
 
