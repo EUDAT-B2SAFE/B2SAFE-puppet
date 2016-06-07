@@ -38,12 +38,16 @@
   $base_uri    = undef,
   $username    = undef,
   $prefix      = undef,
-  $user        = undef,
+  $users       = undef,
   $b2safe_version = '3.0.2',
   ){
 
   $b2safe_package_version = regsubst($b2safe_version,'^(\d+)\.(\d+)\.(\d+)$','\1.\2-\3')
-  
+ 
+  package{ 'git':
+    ensure => installed,
+  }->
+   
   package{'rpm-build':
     ensure   => 'installed',
     provider => 'yum'
@@ -51,23 +55,24 @@
 
   file{'/etc/rpm/macros':
     ensure  => 'present',
-    content => '%_topdir /home/irods/rpmbuild',
+    content => "%_topdir /home/${::b2safe::irods::account_name}/rpmbuild",
     mode    => '0644'
-  }
+  }->
 
   #Clone b2safe version 3.0.2 (work around) 
   exec{'get_B2SAFE_rpm':
     path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
-    command => 'git clone https://github.com/EUDAT-B2SAFE/B2SAFE-core /home/irods/B2SAFE-core && cd /home/irods/B2SAFE-core && git reset --hard 6e30b3c32051710e2630aa7255739f28828940f8',
-    creates => '/home/irods/B2SAFE-core',
-    user    => 'irods'
+    command => "git clone https://github.com/EUDAT-B2SAFE/B2SAFE-core /home/${::b2safe::irods::account_name}/B2SAFE-core && cd /home/${::b2safe::irods::account_name}/B2SAFE-core && git reset --hard v${::b2safe::b2safe::b2safe_version}",
+    creates => "/home/${::b2safe::irods::account_name}/B2SAFE-core",
+    user    => $::b2safe::irods::account_name,
   } ->
 
   exec{'create_rpm':
     path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
-    cwd     => '/home/irods/B2SAFE-core/packaging',
+    cwd     => "/home/${::b2safe::irods::account_name}/B2SAFE-core/packaging",
+    onlyif  => "test ! -e /home/${::b2safe::irods::account_name}/rpmbuild/RPMS/noarch/irods-eudat-b2safe-${b2safe_package_version}.noarch.rpm",
     command => 'sh create_rpm_package.sh',
-    user    => 'irods'
+    user    => $::b2safe::irods::account_name,
   } ->
 
   #=======================================================

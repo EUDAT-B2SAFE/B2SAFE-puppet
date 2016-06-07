@@ -5,34 +5,36 @@ classes:
 #################################################################################
 #Database configuration paramenters: db_user, db_password                       #
 #################################################################################
-b2safe::postgresql::db_user: 'irods'
-b2safe::postgresql::db_password: 'irods'
+b2safe::postgresql::db_user:          'irods'
+b2safe::postgresql::db_password:      'irods'
 b2safe::postgresql::databasehostorip: 'localhost'
-b2safe::postgresql::databaseport: '5432'
-b2safe::postgresql::databasename: 'ICAT'
-b2safe::postgresql::pgdata: '/var/lib/test9.3' 
+b2safe::postgresql::databaseport:     '5432'
+b2safe::postgresql::databasename:     'ICAT'
+b2safe::postgresql::pgdata:           '/var/lib/test9.3' 
 ################################################################################
 #iRODs configuration parameters:                                               #
 ################################################################################
-b2safe::irods::account_name:      'irods'
-b2safe::irods::group_name:        'irods'
-b2safe::irods::zone:              'Zone5'
-b2safe::irods::port:              '1247'
-b2safe::irods::rangestart:        '20000'
-b2safe::irods::rangeend:          '20199'
-b2safe::irods::resourcedir:       '/data/irodsVault'
-b2safe::irods::localzonekey:      'TEMPORARY_zone_key'
-b2safe::irods::negotiationkey:    'TEMPORARY_32byte_negotiation_key'
-b2safe::irods::controlplaneport:  '1248'
-b2safe::irods::controlplanekey:   'TEMPORARY__32byte_ctrl_plane_key'
-b2safe::irods::validationbaseuri: 'https://schemas.irods.org/configuration'
-b2safe::irods::adminpassword:     'changeme'
+b2safe::irods::irods_icat_version:    '4.1.7'
+b2safe::irods::account_name:          'irods'
+b2safe::irods::group_name:            'irods'
+b2safe::irods::zone:                  'Zone5'
+b2safe::irods::port:                  '1247'
+b2safe::irods::rangestart:            '20000'
+b2safe::irods::rangeend:              '20199'
+b2safe::irods::resourcedir:           '/data/irodsVault'
+b2safe::irods::localzonekey:          'TEMPORARY_zone_key'
+b2safe::irods::negotiationkey:        'TEMPORARY_32byte_negotiation_key'
+b2safe::irods::controlplaneport:      '1248'
+b2safe::irods::controlplanekey:       'TEMPORARY__32byte_ctrl_plane_key'
+b2safe::irods::validationbaseuri:     'https://schemas.irods.org/configuration'
+b2safe::irods::adminpassword:         'changeme'
 
 #################################################################################
 ##B2SAFE configuration parameters:                                               #
 #################################################################################
-b2safe::b2safe::base_uri:         ''
-b2safe::b2safe::username:         ''
-b2safe::b2safe::prefix:           ''
-b2safe::b2safe::users:            'irods#Zone5'
+b2safe::b2safe::b2safe_version:       '3.0.2'
+b2safe::b2safe::base_uri:             ''
+b2safe::b2safe::username:             ''
+b2safe::b2safe::prefix:               ''
+b2safe::b2safe::users:                'irods#Zone5 user0#Zone0 user1#Zone1'
 
