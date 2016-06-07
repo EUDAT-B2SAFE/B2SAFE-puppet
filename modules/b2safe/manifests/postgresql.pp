@@ -72,13 +72,13 @@ package{'postgresql93-odbc':
 
  file {'/usr/lib/systemd/system/postgresql-9.3.service':
   ensure => present,
-  notify => Exec [ 'Change PGDATA Path' ]
+  #notify => Exec [ 'Change PGDATA Path' ]
   } ->
 
  exec { 'Change PGDATA Path':
   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
   command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service",
-  refreshonly => true 
+  #refreshonly => true 
   } ->
 
 
