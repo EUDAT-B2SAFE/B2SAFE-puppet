@@ -41,54 +41,54 @@
     }
     
     'CentOS':{
-         $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos7/irods-database-plugin-postgres93-${::b2safe::packages::irods_icat_min_version}-centos7-x86_64.rpm"
-      }    
+      $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos7/irods-database-plugin-postgres93-${::b2safe::packages::irods_icat_min_version}-centos7-x86_64.rpm"
+    }
     'Scientific7':{
       $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos7/irods-database-plugin-postgres93-${::b2safe::packages::irods_icat_min_version}-centos7-x86_64.rpm"
       }
     }
 
- package{'postgresql93-server':
-   ensure   => installed,
-   require  => Package [ $dependencies ],
-   provider => 'yum',
- }->
-
-
-package{'postgresql93-odbc':
-  ensure   => installed,
-  require  => Package [ $dependencies ],
-  provider => 'yum',
+  package{'postgresql93-server':
+    ensure   => installed,
+    require  => Package [ $dependencies ],
+    provider => 'yum',
   }->
 
- package { 'irods-database-plugin-postgres93':
-  ensure   => installed,
-  provider => rpm,
-  source   => $irods_plugin_source,
-  require  =>Package[ "irods-icat-${::b2safe::packages::irods_icat_version}" ]
-  } ->
 
- file {'/usr/lib/systemd/system/postgresql-9.3.service':
-  ensure => present,
-  } ->
+  package{'postgresql93-odbc':
+    ensure   => installed,
+    require  => Package [ $dependencies ],
+    provider => 'yum',
+  }->
 
- exec { 'Change PGDATA Path':
-  path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-  command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service",
-  } ->
+  package { 'irods-database-plugin-postgres93':
+    ensure   => installed,
+    provider => rpm,
+    source   => $irods_plugin_source,
+    require  =>Package[ "irods-icat-${::b2safe::packages::irods_icat_version}" ]
+  }->
+
+  file {'/usr/lib/systemd/system/postgresql-9.3.service':
+    ensure => present,
+  }->
+
+  exec { 'Change PGDATA Path':
+    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+    command => "sed -i \"s@Environment=PGDATA=.*@Environment=PGDATA=${pgdata}@g\" /usr/lib/systemd/system/postgresql-9.3.service",
+  }->
 
 
   exec{'initdb':
-   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-   creates => "${pgdata}/postgresql.conf",
-   command => '/usr/pgsql-9.3/bin/postgresql93-setup initdb'
+    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+    creates => "${pgdata}/postgresql.conf",
+    command => '/usr/pgsql-9.3/bin/postgresql93-setup initdb'
   } ->
 
-#exec{'postgresql-9.3':
-#   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-#   command => 'systemctl start postgresql-9.3',
-#   require => Exec['initdb']
-#  }->
+  #exec{'postgresql-9.3':
+  #   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+  #   command => 'systemctl start postgresql-9.3',
+  #   require => Exec['initdb']
+  #  }->
   #=====================================================
   #Setup ICAT DB, user access and grant priviledges 
   #=====================================================
@@ -106,7 +106,7 @@ package{'postgresql93-odbc':
   }->
 
   exec{'setup_ICAT_DB':
-    unless  => "/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT",
+    unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
     #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
     command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
   }->

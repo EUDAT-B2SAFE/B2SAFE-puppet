@@ -39,8 +39,11 @@
   $username    = undef,
   $prefix      = undef,
   $user        = undef,
+  $b2safe_version = '3.0.2',
   ){
 
+  $b2safe_package_version = regsubst($b2safe_version,'^(\d+)\.(\d+)\.(\d+)$','\1.\2-\3')
+  
   package{'rpm-build':
     ensure   => 'installed',
     provider => 'yum'
