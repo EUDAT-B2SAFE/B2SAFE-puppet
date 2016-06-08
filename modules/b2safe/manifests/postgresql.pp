@@ -6,8 +6,20 @@
   #
   # === Parameters
   #
-  # [*base_uri*]
+  # [*db_password*]
   #
+  # [*db_user*]
+  #
+  # [*databasehostorip*]
+  #
+  # [*databaseport*]
+  #
+  # [*databasename*]
+  #
+  # [*pgdata*]
+  #
+  # [*dependencies*]
+  # 
   # === Authors
   #
   # === Copyright

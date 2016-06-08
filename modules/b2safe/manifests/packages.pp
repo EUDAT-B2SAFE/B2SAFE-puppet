@@ -4,7 +4,7 @@
   #
   # === Parameters
   #
-  # [*sample_parameter*]
+  # [*irods_icat_version*]
   #
   #
   # === Authors

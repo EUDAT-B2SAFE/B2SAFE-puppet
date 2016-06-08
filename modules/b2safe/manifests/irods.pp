@@ -4,9 +4,31 @@
   #
   # === Parameters
   #
-  # [*sample_parameter*]
+  # [*account_name*]
   #
+  # [*group_name*]
   #
+  # [*zone*]
+  #
+  # [*port*]
+  #
+  # [*rangestart*]
+  #
+  # [*rangeend*]
+  #
+  # [*resourcedir*]
+  #
+  # [*localzonekey*]
+  #
+  # [*negotiationkey*]
+  #
+  # [*controlplaneport*]
+  #
+  # [*controlplanekey*]
+  #
+  # [*validationbaseuri*]
+  #
+  # [*adminpassword*]
   # === Authors
   #
   #

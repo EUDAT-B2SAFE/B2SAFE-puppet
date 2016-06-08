@@ -43,11 +43,11 @@
   ){
 
   $b2safe_package_version = regsubst($b2safe_version,'^(\d+)\.(\d+)\.(\d+)$','\1.\2-\3')
- 
+  
   package{ 'git':
     ensure => installed,
   }->
-   
+  
   package{'rpm-build':
     ensure   => 'installed',
     provider => 'yum'
