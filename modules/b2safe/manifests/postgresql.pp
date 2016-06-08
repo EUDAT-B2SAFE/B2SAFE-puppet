@@ -67,14 +67,13 @@
             
             exec{'initdb':
               path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-              #unless  => 'test -d /var/lib/pgsql/9.3/data',
+              creates  => '/var/lib/pgsql/9.3/data/pg_hba.conf',
               command => 'service postgresql-9.3 initdb'
             } ->
 
            exec{'postgresql-9.3':
               path    => '/bin:/usr/bin:/sbin:/usr/sbin',
               command => 'service postgresql-9.3 start',
-              #require => Exec['initdb']
            }->
          
            file {"/var/lib/pgsql/9.3/data/pg_hba.conf":
