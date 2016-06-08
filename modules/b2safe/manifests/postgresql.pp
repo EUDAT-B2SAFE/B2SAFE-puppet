@@ -62,7 +62,7 @@
 
   package{'postgresql93-server':
     ensure   => installed,
-    require  => Package [ $dependencies ],
+    require  => Package[ $dependencies ],
     provider => 'yum',
   }->
 

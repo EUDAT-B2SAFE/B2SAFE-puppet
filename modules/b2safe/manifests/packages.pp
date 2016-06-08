@@ -40,7 +40,7 @@
 
           package { $dependencies:
             ensure  => installed,
-            require => Package ['epel-release-6-8']
+            require => Package['epel-release-6-8']
           }
           
           package { 'pgdg-sl93-9.3-2':
