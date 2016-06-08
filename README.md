@@ -5,9 +5,10 @@ Automatic installation for EUDAT B2SAFE service
 ##Status
 
 * Current implementation tested on Scientific Linux 6 and CentOS 7 and Scientific 7. 
+* Two branches: Standalone installation & Puppet infrastructure 
 * Installation and configuration of Postgresql 9.3 
-* Installation of iRods4.1.7
-* Installation of B2SAFE package  3.0-2
+* Installation of iRods4.1.8 
+* Installation of B2SAFE package  3.1-1
 
 ## Puppet version 
 * puppet version 3.8.x
@@ -45,8 +46,6 @@ iRODS database user, which will be used for configuration of database instance. 
 
 db_password
 
-
-
 databasehostorip
 
 databaseport
@@ -56,6 +55,10 @@ databasename
 pgdata
 
 ###iRODs configuration parameters
+
+irods_icat_version
+
+Version of iCAT server. Latest default is 4.1.8. An iCAT server is just a Resource server that also provides the central point of coordination for the Zone and manages the metadata. The irods-icat package installs the iRODS binaries and management scripts.
 
 account_name
 
@@ -86,11 +89,23 @@ adminpassword
 
 ###B2SAFE configuration parameters
 
-BASE_URI
+b2safe_version
 
-USERNAME        
+B2SAFE Version that will be installed. Latest default is 3.1-1. 
 
-PREFIX           
+base_uri
 
-USERS
+This is the URI to the PID Handle service. Mandatory to be set.
+
+username        
+
+Username at the PID Handle service. Mandatory to be set.
+
+prefix         
+
+Prefix for the PID Handle service. Mandatory to be set.
+
+users 
+
+A list of users at the different zones. E.g user1#zone1. Mandatory to be set.
  
