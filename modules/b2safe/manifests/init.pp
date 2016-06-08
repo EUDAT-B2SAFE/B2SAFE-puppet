@@ -16,18 +16,18 @@
 class b2safe(
 )
 {
-    class {'b2safe::packages':
+    class {'::b2safe::packages':
     stage => 'pre',
     }
 
-    class{'db':
+    class{'::b2safe::db':
     }
 
-    class{'b2safe::irods':
+    class{'::b2safe::irods':
     stage =>'main'
     }
     
-    class{'b2safe::b2safe':
+    class{'::b2safe::b2safe':
     stage => 'post'
     }
 }

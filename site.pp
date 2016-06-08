@@ -3,7 +3,7 @@
 
 
 node 'default'{
-include b2safe
+include ::b2safe
 }
 
 
@@ -17,5 +17,5 @@ Stage['main'] -> Stage['post']
 
 
 
-include(hiera_array("classes", []))
+include(hiera_array('classes', []))
 

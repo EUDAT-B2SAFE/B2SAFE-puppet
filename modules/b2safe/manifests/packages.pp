@@ -6,7 +6,8 @@
   #
   # [*irods_icat_version*]
   #
-  #
+  # [*dependencies*]
+  # Set of required packages for installation 
   # === Authors
   #
   #
