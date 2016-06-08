@@ -69,7 +69,7 @@
 
   package{'postgresql93-odbc':
     ensure   => installed,
-    require  => Package [ $dependencies ],
+    require  => Package[ $dependencies ],
     provider => 'yum',
   }->
 
