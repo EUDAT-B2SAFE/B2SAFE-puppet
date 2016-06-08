@@ -32,7 +32,7 @@ b2safe::irods::adminpassword:         'changeme'
 #################################################################################
 ##B2SAFE configuration parameters:                                               #
 #################################################################################
-b2safe::b2safe::b2safe_version:       '3.0.2'
+b2safe::b2safe::b2safe_version:       '3.1.1'
 b2safe::b2safe::base_uri:             ''
 b2safe::b2safe::username:             ''
 b2safe::b2safe::prefix:               ''

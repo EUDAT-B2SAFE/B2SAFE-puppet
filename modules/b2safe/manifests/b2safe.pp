@@ -82,7 +82,7 @@
   exec{'install_rpm':
     unless  => 'rpm -qa |grep irods-eudat-b2safe',
     path    => [ '/bin', '/usr/bin', '/usr/local/bin' ],
-    command => 'rpm -ivh /home/irods/rpmbuild/RPMS/noarch/irods-eudat-b2safe-3.0-2.noarch.rpm',
+    command => "rpm -ivh /home/${::b2safe::irods::account_name}/rpmbuild/RPMS/noarch/irods-eudat-b2safe-${b2safe_package_version}.noarch.rpm",
   } ->
 
   file { '/opt/eudat/b2safe/packaging/install.conf':
