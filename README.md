@@ -40,72 +40,72 @@ Automatic installation for EUDAT B2SAFE service
 
 ###Database configuration paramenters
 
-db_user
+**db_user**
 
 iRODS database user, which will be used for configuration of database instance. Thish instance will be used by the iRODS by means of database plugin. 
 
-db_password
+**db_password**
 
-databasehostorip
+**databasehostorip**
 
-databaseport
+**databaseport**
 
-databasename
+**databasename**
 
-pgdata
+**pgdata**
 
 ###iRODs configuration parameters
 
-irods_icat_version
+**irods_icat_version**
 
 Version of iCAT server. Latest default is 4.1.8. An iCAT server is just a Resource server that also provides the central point of coordination for the Zone and manages the metadata. The irods-icat package installs the iRODS binaries and management scripts.
 
-account_name
+**account_name**
 
-group_name
+**group_name**
 
-zone 
+**zone** 
 
-port             
+**port**             
 
-rangestart
+**rangestart**
 
-rangeend
+**rangeend**
 
-resourcedir
+**resourcedir**
 
-localzonekey
+**localzonekey**
 
-negotiationkey
+**negotiationkey**
 
-controlplaneport
+**controlplaneport**
 
-controlplanekey
+**controlplanekey**
 
-validationbaseuri
+**validationbaseuri**
 
-adminpassword
+**adminpassword**
 
 
 ###B2SAFE configuration parameters
 
-b2safe_version
+**b2safe_version**
 
 B2SAFE Version that will be installed. Latest default is 3.1-1. 
 
-base_uri
+**base_uri**
 
 This is the URI to the PID Handle service. Mandatory to be set.
 
-username        
+**username**        
 
 Username at the PID Handle service. Mandatory to be set.
 
-prefix         
+**prefix**        
 
 Prefix for the PID Handle service. Mandatory to be set.
 
-users 
+**users** 
 
 A list of users at the different zones. E.g user1#zone1. Mandatory to be set.
  
