@@ -86,25 +86,25 @@
             service{'postgresql-9.3':
               ensure    => 'running',
               subscribe => File['/var/lib/pgsql/9.3/data/pg_hba.conf']
-           }
+           }->
 
            #============================================
            #Setup ICAT DB, user access and grant priviledges 
            #=====================================================
 
-          exec{'setup_ICAT_DB':
-          unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
-          #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
-          command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
+           exec{'setup_ICAT_DB':
+             unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
+             #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
+             command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
+           }->
+
+           exec{'add_user':
+             unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
+             command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
           }->
 
-         exec{'add_user':
-         unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
-         command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
-         }->
-
          exec{'grand_priv':
-         command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
+           command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
          }->
          #======================================================
          # Copy configuration file for the Database 
@@ -164,7 +164,38 @@
             service{'postgresql-9.3':
               ensure    => 'running',
               subscribe => File["${pgdata}/pg_hba.conf"]
-           }  
+           }->
+           
+           #============================================
+           #Setup ICAT DB, user access and grant priviledges 
+           #=====================================================
+
+           exec{'setup_ICAT_DB':
+             unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
+             #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
+             command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
+           }->
+
+           exec{'add_user':
+             unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
+             command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
+           }->
+
+           exec{'grand_priv':
+             command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
+           }->
+ 
+          #======================================================
+          # Copy configuration file for the Database 
+          #======================================================
+
+          file { '/var/lib/irods/packaging/setup_irods_database.sh':
+            ensure  => file,
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0755',
+            content => template('b2safe/setup_irods_database.erb'),
+          }             
         }
         default: {
           notify{ 'not supported operatingsystem majerrelease': }
@@ -221,26 +252,27 @@
             service{'postgresql-9.3':
               ensure    => 'running',
               subscribe => File["${pgdata}/pg_hba.conf"]
-           }
+           }->
 
-            #============================================
+           #============================================
            #Setup ICAT DB, user access and grant priviledges 
            #=====================================================
 
            exec{'setup_ICAT_DB':
-           unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
-           #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
-           command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
+             unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
+             #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
+             command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
            }->
 
-          exec{'add_user':
-          unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
-          command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
+           exec{'add_user':
+            unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
+            command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
           }->
 
           exec{'grand_priv':
-          command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
+            command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
           }->
+
           #======================================================
           # Copy configuration file for the Database 
           #======================================================
