@@ -165,7 +165,7 @@
               ensure    => 'running',
               subscribe => File["${pgdata}/pg_hba.conf"]
             }->
-           
+             
             #============================================
             #Setup ICAT DB, user access and grant priviledges 
             #=====================================================
@@ -184,7 +184,7 @@
             exec{'grand_priv':
               command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
             }->
- 
+            
             #======================================================
             # Copy configuration file for the Database 
             #======================================================
@@ -285,9 +285,9 @@
               content => template('b2safe/setup_irods_database.erb'),
             }
          }
-         default: {
+         default:{
            notify{ 'not supported operatingsystem majerrelease': }
-        }
+         }
       }
     }
   }
