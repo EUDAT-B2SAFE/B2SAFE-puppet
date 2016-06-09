@@ -165,7 +165,7 @@
               ensure    => 'running',
               subscribe => File["${pgdata}/pg_hba.conf"]
             }->
-             
+            
             #============================================
             #Setup ICAT DB, user access and grant priviledges 
             #=====================================================
@@ -284,10 +284,10 @@
               mode    => '0755',
               content => template('b2safe/setup_irods_database.erb'),
             }
-         }
-         default:{
-           notify{ 'not supported operatingsystem majerrelease': }
-         }
+        }
+        default:{
+          notify{ 'not supported operatingsystem majerrelease': }
+        }
       }
     }
   }
