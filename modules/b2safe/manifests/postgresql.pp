@@ -56,7 +56,7 @@
               ensure   => installed,
               require  => Package[ $dependencies ],
               provider => 'yum',
-            }-> 
+            }->
            
             package { 'irods-database-plugin-postgres93':
               ensure   => installed,
@@ -76,7 +76,7 @@
               command => 'service postgresql-9.3 start',
            }->
          
-           file {"/var/lib/pgsql/9.3/data/pg_hba.conf":
+           file {'/var/lib/pgsql/9.3/data/pg_hba.conf':
               ensure => present,
               owner  => 'postgres',
               group  => 'postgres',
@@ -85,14 +85,9 @@
 
             service{'postgresql-9.3':
               ensure    => 'running',
-              subscribe => File["/var/lib/pgsql/9.3/data/pg_hba.conf"]
+              subscribe => File['/var/lib/pgsql/9.3/data/pg_hba.conf']
            }
 
-           #exec{'postgresql-9.3':
-           #   path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-           #   command => 'systemctl start postgresql-9.3',
-           #   require => Exec['initdb']
-           #  }->
            #============================================
            #Setup ICAT DB, user access and grant priviledges 
            #=====================================================
@@ -257,6 +252,9 @@
             mode    => '0755',
             content => template('b2safe/setup_irods_database.erb'),
           }         
+        }
+         default: {
+           notify{ 'not supported operatingsystem majerrelease': }
         }
       }
     }
