@@ -116,7 +116,7 @@
               group   => 'root',
               mode    => '0755',
               content => template('b2safe/setup_irods_database.erb'),
-            }     
+            }
         }
         7:{
             $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos7/irods-database-plugin-postgres93-${::b2safe::packages::irods_icat_min_version}-centos7-x86_64.rpm"
@@ -139,7 +139,7 @@
               require  =>Package[ "irods-icat-${::b2safe::packages::irods_icat_version}" ]
             }->
 
-           file {'/usr/lib/systemd/system/postgresql-9.3.service':
+            file {'/usr/lib/systemd/system/postgresql-9.3.service':
               ensure => present,
             }->
 
@@ -152,9 +152,9 @@
               path    => '/bin:/usr/bin:/sbin:/usr/sbin',
               creates => "${pgdata}/postgresql.conf",
               command => '/usr/pgsql-9.3/bin/postgresql93-setup initdb'
-           }->
+            }->
   
-           file {"${pgdata}/pg_hba.conf":
+            file {"${pgdata}/pg_hba.conf":
               ensure => present,
               owner  => 'postgres',
               group  => 'postgres',
@@ -164,38 +164,38 @@
             service{'postgresql-9.3':
               ensure    => 'running',
               subscribe => File["${pgdata}/pg_hba.conf"]
-           }->
+            }->
            
-           #============================================
-           #Setup ICAT DB, user access and grant priviledges 
-           #=====================================================
+            #============================================
+            #Setup ICAT DB, user access and grant priviledges 
+            #=====================================================
 
-           exec{'setup_ICAT_DB':
-             unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
-             #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
-             command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
-           }->
+            exec{'setup_ICAT_DB':
+              unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
+              #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
+              command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
+            }->
 
-           exec{'add_user':
-             unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
-             command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
-           }->
+            exec{'add_user':
+              unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
+              command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
+            }->
 
-           exec{'grand_priv':
-             command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
-           }->
+            exec{'grand_priv':
+              command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
+            }->
  
-          #======================================================
-          # Copy configuration file for the Database 
-          #======================================================
+            #======================================================
+            # Copy configuration file for the Database 
+            #======================================================
 
-          file { '/var/lib/irods/packaging/setup_irods_database.sh':
-            ensure  => file,
-            owner   => 'root',
-            group   => 'root',
-            mode    => '0755',
-            content => template('b2safe/setup_irods_database.erb'),
-          }
+            file { '/var/lib/irods/packaging/setup_irods_database.sh':
+              ensure  => file,
+              owner   => 'root',
+              group   => 'root',
+              mode    => '0755',
+              content => template('b2safe/setup_irods_database.erb'),
+            }
         }
         default: {
           notify{ 'not supported operatingsystem majerrelease': }
@@ -252,39 +252,39 @@
             service{'postgresql-9.3':
               ensure    => 'running',
               subscribe => File["${pgdata}/pg_hba.conf"]
-           }->
+            }->
 
-           #============================================
-           #Setup ICAT DB, user access and grant priviledges 
-           #=====================================================
+            #============================================
+            #Setup ICAT DB, user access and grant priviledges 
+            #=====================================================
 
-           exec{'setup_ICAT_DB':
-             unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
-             #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
-             command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
-           }->
+            exec{'setup_ICAT_DB':
+              unless  => '/usr/pgsql-9.3/bin/psql -U postgres --list |grep ICAT',
+              #unless  => "/usr/pgsql-9.3/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -w icat |wc -l" 
+              command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'CREATE DATABASE \"ICAT\"'",
+            }->
+            
+            exec{'add_user':
+              unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
+              command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
+            }->
 
-           exec{'add_user':
-            unless  => "/usr/pgsql-9.3/bin/psql -U postgres -c \"SELECT 1 FROM pg_roles WHERE rolname='${db_user}'\" |grep 1",
-            command => "/usr/pgsql-9.3/bin/psql -U postgres -c \"CREATE USER ${db_user} WITH PASSWORD '${db_password}'\"",
-          }->
+            exec{'grand_priv':
+              command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
+            }->
 
-          exec{'grand_priv':
-            command => "/usr/pgsql-9.3/bin/psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE \"ICAT\" TO ${db_user}\'",
-          }->
+            #======================================================
+            # Copy configuration file for the Database 
+            #======================================================
 
-          #======================================================
-          # Copy configuration file for the Database 
-          #======================================================
-
-          file { '/var/lib/irods/packaging/setup_irods_database.sh':
-            ensure  => file,
-            owner   => 'root',
-            group   => 'root',
-            mode    => '0755',
-            content => template('b2safe/setup_irods_database.erb'),
-          }
-        }
+            file { '/var/lib/irods/packaging/setup_irods_database.sh':
+              ensure  => file,
+              owner   => 'root',
+              group   => 'root',
+              mode    => '0755',
+              content => template('b2safe/setup_irods_database.erb'),
+            }
+         }
          default: {
            notify{ 'not supported operatingsystem majerrelease': }
         }
