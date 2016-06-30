@@ -1,5 +1,5 @@
 {
-  "name": "puppet-b2safe",
+  "name": "b2safe",
   "version": "0.1.0",
   "author": "eudat",
   "summary": "Puppet module for automatic B2SAFE module deployment",
