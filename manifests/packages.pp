@@ -13,6 +13,12 @@
 # [*dependencies*]
 #   A list of dependencies, needed by iRODS and Postgresql.
 #
+# [*python_dependencies*]
+#   A list of python dependencies, needed by B2SAFE.
+#
+#[*pip_dependencies*]
+#   A list of python dependencies from pip, needed by B2SAFE.
+#
 # [*irods_icat_version*]
 #   iCAT version. Default is 4.1.7.
 #
@@ -28,12 +34,24 @@
 class b2safe::packages(
   $install_epel = true,
   $dependencies = ['fuse-libs', 'perl', 'perl-JSON', 'python-jsonschema', 'python-psutil', 'python-requests', 'authd', 'lsof'],
+  $python_dependencies = ['python-pip', 'python-simplejson', 'python-httplib2', 'python-defusedxml', 'python-lxml'],
+  $pip_dependencies = ['queuelib', 'dweepy'],
   $irods_icat_version = '4.1.7'
 ){
   $irods_icat_min_version = regsubst($irods_icat_version,'^(\d+)\.(\d+)\.(\d+)$','\2.\3')
 
   package { $dependencies:
     ensure  => installed,
+  }
+
+  package { $python_dependencies:
+    ensure  => installed,
+  }
+
+  package { $pip_dependencies:
+    ensure   => installed,
+    provider => pip,
+    require  => Packeage[ $python_dependencies ],
   }
 
   case $::operatingsystem{
