@@ -1,6 +1,6 @@
 # B2SAFE deployment recipes for puppet
 
-[![Build Status](https://travis-ci.org/EUDAT-B2SAFE/b2safe-puppet.svg?branch=master)](https://travis-ci.org/EUDAT-B2SAFE/b2safe-puppet)
+[![Build Status](https://travis-ci.org/EUDAT-B2SAFE/B2SAFE-puppet.svg?branch=core)](https://travis-ci.org/EUDAT-B2SAFE/b2safe-puppet)
 
 #### Table of Contents
 
