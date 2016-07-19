@@ -1,3 +1,43 @@
+# == Class: b2safe::postgresql
+#
+# == Description ==
+#
+# This class manage the installation and configuration of postgresql databsse and necessary plugins.
+#
+# === Parameters
+#
+# [*db_password*]
+#   Databse password, unset by default.
+#
+# [*db_user*]
+#   User for Postgresql databse. Default is irods.
+#
+# [*databasehostorip*]
+#   Hostname or ip address of database server. Default is localhost
+#
+#[*databaseport*]
+#   Port of database. Default is 5432.
+#
+# [*databasename*]
+#   Name of used database. Default is ICAT.
+#
+# [*pgdata*]
+#   Path to data directory from psotgresql. Default is /var/lib/pgsql/9.3/data/
+#
+# [*dependencies*]
+#   Dependencies for postgresql databse.
+#
+# [*manage_database*]
+#   true or false. Decide if puppet should create database and user. Default is false.
+#
+# === Authors
+#
+#
+#
+# === Copyright
+#
+# Copyright 2015 EUDAT2020
+#
 class b2safe::postgresql(
   $db_password        = undef,
   $db_user            = 'irods',
