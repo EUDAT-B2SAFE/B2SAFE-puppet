@@ -1,3 +1,59 @@
+# == Class: b2safe::irods
+#
+# == Description ==
+#
+# This class should perform the initial irods configuration.
+#
+# === Parameters
+#
+# [*account_name*]
+#   Username who start iRODS. Default is irods.
+#
+# [*group_name*]
+#   Groupname who start iRODS. Default is irods.
+#
+# [*zone*]
+#   Name of local zone in irods. Default is zone.
+#
+# [*port*]
+#   Port which iRODS ueses to communicate with other instances. Default is 1247.
+#
+# [*rangestart*]
+#   First portnumber of range which iRODS uses for data exchange. Default is 20000.
+#
+# [*rangeend*]
+#   Last portnumber of range which iRODS uses for data exchange. Default is 20199.
+#
+# [*resourcedir*]
+#   Directory used by iRODS to store data. Default is /data/irodsVault.
+#
+# [*localzonekey*]
+#   Key for local zone. Needed in federations to gave access to remote users. Default is TEMPORARY_zone_key.
+#
+# [*negotiationkey*]
+#   Key for federations. This key must be the same at all iRODS instances in federation. Default is TEMPORARY_32byte_negotiation_key.
+#
+# [*controlplaneport*]
+#   Port for iRODS control plane. Default is 1248.
+#
+# [*controlplanekey*]
+#   Key for iRODS control plane communitcation. Default is TEMPORARY__32byte_ctrl_plane_key.
+#
+# [*validationbaseuri*]
+#   URL to iRODS configuration schema. Default is https://schemas.irods.org/configuration.
+#
+# [*adminpassword*]
+#   Password for admin user. Mandatory to be set.
+#
+# === Authors
+#
+#
+#
+# === Copyright
+#
+# Copyright 2015 EUDAT2020
+#
+
 #Class irods is used to perform irods initial configuration
 
 class b2safe::irods(
