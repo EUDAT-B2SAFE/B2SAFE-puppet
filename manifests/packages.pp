@@ -48,10 +48,15 @@ class b2safe::packages(
     ensure  => installed,
   }
 
+  file { '/usr/bin/pip-python':
+    ensure => 'link',
+    target => '/usr/bin/pip',
+  }
+
   package { $pip_dependencies:
     ensure   => installed,
     provider => pip,
-    require  => Package[ $python_dependencies ],
+    require  => [ Package[ $python_dependencies ], File[ '/usr/bin/pip-python' ] ],
   }
 
   case $::operatingsystem{
