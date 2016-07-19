@@ -51,7 +51,7 @@ class b2safe::packages(
   package { $pip_dependencies:
     ensure   => installed,
     provider => pip,
-    require  => Packeage[ $python_dependencies ],
+    require  => Package[ $python_dependencies ],
   }
 
   case $::operatingsystem{
