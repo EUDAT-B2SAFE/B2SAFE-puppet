@@ -7,7 +7,7 @@
 # === Parameters
 #
 # [*db_password*]
-#   Databse password, unset by default.
+#   Databse password. Mandatory to be set.
 #
 # [*db_user*]
 #   User for Postgresql databse. Default is irods.
