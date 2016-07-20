@@ -25,6 +25,9 @@
 # [*run_scripts*]
 #   Decide if setup scripts from iRODS and B2SAFE should run after package installation. Default is true.
 #
+# [*server_url*]
+#   URL for B2SAFE server. Default is fqdn fact.
+#
 # === Authors
 #
 #
@@ -40,7 +43,8 @@ class b2safe::b2safe(
   $prefix         = undef,
   $users          = undef,
   $b2safe_version = '3.0.2',
-  $run_scripts    = true
+  $run_scripts    = true,
+  $server_url     = $::fqdn
 ){
   $b2safe_package_version = regsubst($b2safe_version,'^(\d+)\.(\d+)\.(\d+)$','\1.\2-\3')
 
