@@ -82,7 +82,7 @@ class b2safe::irods(
   validate_string($negotiationkey)
   validate_string($controlplaneport)
   validate_string($controlplanekey)
-  validate_re($validationbaseuri,'((http|https)\:\/\/)?[A-Za-z0-9\-]*\.[A-Za-z0-9\-]+\.[A-Za-z0-9]{2,}')
+  validate_re($validationbaseuri,'((http|https)\:\/\/)?[A-Za-z0-9\-]*\.[A-Za-z0-9\-]+\.[A-Za-z]{2,}')
   validate_string($adminpassword)
 
   #Create Vault directory

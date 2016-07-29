@@ -46,13 +46,13 @@ class b2safe::b2safe(
   $run_scripts    = true,
   $server_url     = $::fqdn
 ){
-  validate_re($base_uri,'((http|https)\:\/\/)?[A-Za-z0-9\-]*\.[A-Za-z0-9\-]+\.[A-Za-z0-9]{2,}')
+  validate_re($base_uri,'(http|https)\:\/\/)?[A-Za-z0-9\-]*\.{0,1}[A-Za-z0-9\-]+\.[A-Za-z]{2,}|localhost')
   validate_string($username)
   validate_string($prefix)
   validate_string($users)
   validate_string($b2safe_version)
   validate_bool($run_scripts)
-  validate_re($server_url,'((http|https)\:\/\/)?[A-Za-z0-9\-]*\.[A-Za-z0-9\-]+\.[A-Za-z0-9]{2,}')
+  validate_re($server_url,'(http|https)\:\/\/)?[A-Za-z0-9\-]*\.{0,1}[A-Za-z0-9\-]+\.[A-Za-z]{2,}|localhost')
 
   $b2safe_package_version = regsubst($b2safe_version,'^(\d+)\.(\d+)\.(\d+)$','\1.\2-\3')
 
