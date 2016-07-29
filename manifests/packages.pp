@@ -68,7 +68,7 @@ class b2safe::packages(
   case $::operatingsystem{
     'Scientific': {
       case $::operatingsystemmajrelease {
-        6: {
+        '6': {
           if $install_epel{
             package { 'epel-release-6-8':
               ensure   => installed,
@@ -90,7 +90,7 @@ class b2safe::packages(
             require  => Package[$dependencies]
           }
         }
-        7: {
+        '7': {
           if $install_epel{
             package { 'epel-release-7-6':
               ensure   => installed,
@@ -120,7 +120,7 @@ class b2safe::packages(
     }
     'CentOS': {
       case $::operatingsystemmajrelease {
-        7: {
+        '7': {
           if $install_epel{
             package { 'epel-release-7-6':
               ensure   => installed,

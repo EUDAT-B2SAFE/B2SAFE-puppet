@@ -64,10 +64,10 @@ class b2safe::postgresql(
   case $::operatingsystem{
     'Scientific', 'CentOS': {
       case $::operatingsystemmajrelease{
-        6: {
+        '6': {
           $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos6/irods-database-plugin-postgres93-${::b2safe::packages::irods_icat_min_version}-centos6-x86_64.rpm"
         }
-        7: {
+        '7': {
           $irods_plugin_source = "ftp://ftp.renci.org/pub/irods/releases/${::b2safe::packages::irods_icat_version}/centos7/irods-database-plugin-postgres93-${::b2safe::packages::irods_icat_min_version}-centos7-x86_64.rpm"
         }
         default:
