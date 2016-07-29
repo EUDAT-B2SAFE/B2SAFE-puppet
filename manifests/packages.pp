@@ -38,6 +38,12 @@ class b2safe::packages(
   $pip_dependencies = ['queuelib', 'dweepy'],
   $irods_icat_version = '4.1.7'
 ){
+  validate_bool($install_epel)
+  validate_array($dependencies)
+  validate_array($python_dependencies)
+  validate_array($pip_dependencies)
+  validate_string($irods_icat_version)
+
   $irods_icat_min_version = regsubst($irods_icat_version,'^(\d+)\.(\d+)\.(\d+)$','\2.\3')
 
   package { $dependencies:

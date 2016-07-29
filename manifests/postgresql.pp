@@ -47,8 +47,16 @@ class b2safe::postgresql(
   $pgdata             = '/var/lib/pgsql/9.3/data/',
   $dependencies       = ['unixODBC', 'unixODBC-devel'],
   $manage_database    = false
-)
-{
+) {
+  validate_string($db_password)
+  validate_string($db_user)
+  validate_string($databasehostorip)
+  validate_string($databaseport)
+  validate_string($databasename)
+  validate_absolute_path($pgdata)
+  validate_array($dependencies)
+  validate_bool($manage_database)
+
   package{ $dependencies:
     ensure => installed,
   }
