@@ -57,10 +57,10 @@
           }
         }
         7: {
-          package { 'epel-release-7-6':
+          package { 'epel-release-7-8':
               ensure   => installed,
               provider => rpm,
-              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm',
+              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm',
           }
       
           package { $dependencies:
@@ -90,10 +90,10 @@
     'CentOS':{
       case $::operatingsystemmajrelease {
         7: {
-          package { 'epel-release-7-7':
+          package { 'epel-release-7-8':
             ensure   => installed,
             provider => rpm,
-            source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-7.noarch.rpm',
+            source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm',
           }
 
           package { $dependencies:
