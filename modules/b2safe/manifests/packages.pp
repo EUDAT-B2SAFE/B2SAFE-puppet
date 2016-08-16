@@ -65,7 +65,7 @@
       
           package { $dependencies:
             ensure  => installed,
-            require => Package['epel-release-7-6']
+            require => Package['epel-release-7-8']
           }
 
           package { 'pgdg-sl93-9.3-2':
@@ -98,7 +98,7 @@
 
           package { $dependencies:
             ensure  => installed,
-            require => Package['epel-release-7-7']
+            require => Package['epel-release-7-8']
           }
           
           package { 'pgdg-centos93-9.3-2':
