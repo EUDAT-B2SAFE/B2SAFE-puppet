@@ -57,15 +57,15 @@
           }
         }
         7: {
-          package { 'epel-release-7-8':
+          package { 'epel-release-latest-7':
               ensure   => installed,
               provider => rpm,
-              source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm',
+              source   => 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm',
           }
       
           package { $dependencies:
             ensure  => installed,
-            require => Package['epel-release-7-8']
+            require => Package['epel-release-latest-7']
           }
 
           package { 'pgdg-sl93-9.3-2':
@@ -90,15 +90,15 @@
     'CentOS':{
       case $::operatingsystemmajrelease {
         7: {
-          package { 'epel-release-7-8':
+          package { 'epel-release-latest-7':
             ensure   => installed,
             provider => rpm,
-            source   => 'http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm',
+            source   => 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm',
           }
 
           package { $dependencies:
             ensure  => installed,
-            require => Package['epel-release-7-8']
+            require => Package['epel-release-latest-7']
           }
           
           package { 'pgdg-centos93-9.3-2':
